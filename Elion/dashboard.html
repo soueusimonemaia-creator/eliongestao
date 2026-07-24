@@ -1,0 +1,2619 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elion Gestão</title>
+    <link rel="stylesheet" href="{% static 'Elion/css/style.css' %}?v=20260408r5_refazer">
+    <style>
+.crm-button-preview-row{margin-top:14px;display:flex;gap:16px;flex-wrap:wrap}.crm-button-preview-box{border:1px dashed #cfd8e3;border-radius:10px;padding:12px;min-width:260px;background:#f8fbff}.crm-button-preview-box span{display:block;font-size:.9rem;font-weight:700;color:#35557c;margin-bottom:8px}.crm-button-preview-box img{max-width:220px;max-height:70px;display:block;border-radius:8px;box-shadow:0 2px 8px rgba(15,23,42,.12)}.field-hint{display:block;margin-top:6px;color:#5f6f86}.fuel-btn,.elion-manutencao-btn,.elion-revisao-btn{padding:14px 16px!important;overflow:hidden!important;border:0!important;box-shadow:0 8px 18px rgba(15,23,42,.16)!important;min-height:74px!important;display:flex!important;align-items:center!important;gap:12px!important;justify-content:flex-start!important;border-radius:14px!important;color:#fff!important}.fuel-btn .icon-glyph,.elion-manutencao-btn .icon-glyph,.elion-revisao-btn .icon-glyph{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.18);font-size:1.2rem;flex:0 0 38px}.fuel-btn .btn-label,.elion-manutencao-btn .btn-label{display:block!important;font-weight:800!important;color:#fff!important;font-size:1rem!important;line-height:1.2!important;white-space:normal!important;text-align:left!important}.fuel-btn.active,.elion-manutencao-btn.active,.elion-revisao-btn.active{outline:3px solid rgba(255,255,255,.6)!important;transform:translateY(-1px)}.elion-manutencao-btn{width:100%!important;background:linear-gradient(135deg,#111827,#000)!important}.lancamento-botoes-fixos{margin-top:14px;display:grid;gap:12px}.lancamento-botoes-fixos #manutencao-button-slot{display:grid;grid-template-columns:repeat(2,minmax(230px,1fr));gap:12px}.lancamento-botoes-fixos{margin-top:18px!important}.lancamento-botoes-fixos .fuel-button-grid{grid-template-columns:repeat(2,minmax(230px,1fr))!important;gap:12px!important}.lancamento-botoes-fixos .fuel-btn,.lancamento-botoes-fixos .elion-manutencao-btn{min-height:82px!important;border-radius:14px!important}.lancamento-botoes-fixos #manutencao-button-slot{max-width:none}.lancamento-botoes-verticais{display:grid!important;grid-template-columns:1fr!important;gap:14px!important;align-items:start!important}.lancamento-botoes-verticais #fuel-button-grid{order:1}.lancamento-botoes-secundarios{order:2;display:grid!important;grid-template-columns:1fr!important;gap:12px!important}.lancamento-botao-linha,.lancamento-botao-linha .elion-manutencao-btn,.lancamento-botao-linha .elion-revisao-btn{width:100%!important}.lancamento-botao-linha .elion-manutencao-btn,.lancamento-botao-linha .elion-revisao-btn{min-height:72px!important;justify-content:flex-start!important;padding:0 18px!important;border-radius:14px!important}.pos-detail-shell{min-height:280px}.pos-detail-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.pos-desc-row{display:grid;grid-template-columns:minmax(220px,280px) 1fr;gap:14px;align-items:end;margin-bottom:14px}.pos-desc-row .descricao-box{display:flex;flex-direction:column;gap:6px}.pos-desc-row .descricao-box input{font-weight:700;color:#183153;background:#f7faff}.pos-detail-grid.grid-6{grid-template-columns:repeat(6,minmax(100px,1fr))!important}.pos-detail-grid.grid-6 .span-6{grid-column:span 6!important}.pos-detail-grid.grid-6 .span-2{grid-column:span 2!important}@media (max-width:1100px){.lancamento-botoes-fixos .fuel-button-grid{grid-template-columns:repeat(2,minmax(140px,1fr))!important}.lancamento-botoes-fixos #manutencao-button-slot{max-width:none}.pos-desc-row{grid-template-columns:1fr}.pos-detail-grid.grid-6{grid-template-columns:1fr 1fr!important}.pos-detail-grid.grid-6 .span-6,.pos-detail-grid.grid-6 .span-2{grid-column:span 2!important}}
+
+        .horizontal-shell{position:sticky;top:0;z-index:80;background:#102a56!important;box-shadow:0 8px 24px rgba(15,23,42,.14)!important;border-bottom:1px solid rgba(255,255,255,.08)!important;border-radius:0!important;}
+        .horizontal-topbar{display:grid!important;grid-template-columns:auto 1fr auto!important;align-items:center!important;gap:10px!important;padding:6px 12px 4px!important;color:#fff!important;min-height:44px!important;}
+        .horizontal-nav{display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:6px!important;flex-wrap:nowrap!important;overflow:visible!important;padding:0 12px 8px!important;background:transparent!important;}
+        .nav-group{position:relative!important;display:block!important;}
+        .nav-dropdown{position:absolute!important;top:calc(100% + 6px)!important;left:0!important;transform:none!important;display:none!important;min-width:230px!important;background:#16386a!important;border:1px solid rgba(255,255,255,.1)!important;border-radius:12px!important;padding:8px!important;box-shadow:0 18px 48px rgba(15,23,42,.25)!important;z-index:90!important;}
+        .nav-group.open .nav-dropdown{display:grid!important;grid-template-columns:1fr!important;gap:6px!important;}
+        .nav-home-item,.nav-group-toggle{display:inline-flex!important;align-items:center!important;justify-content:center!important;border:1px solid rgba(255,255,255,.16)!important;background:#102a56!important;color:#ffffff!important;padding:5px 10px!important;border-radius:8px!important;font-weight:700!important;cursor:pointer!important;min-width:auto!important;box-shadow:none!important;font-size:.79rem!important;line-height:1.05!important;white-space:nowrap!important;}
+        .nav-home-item.active,.nav-group.open .nav-group-toggle,.nav-group-toggle:hover,.nav-home-item:hover{background:#173d73!important;color:#fff!important;border-color:rgba(255,255,255,.22)!important;}
+        .nav-dropdown .menu-item,.nav-dropdown a.menu-item{display:block!important;width:100%!important;background:transparent!important;color:#ffffff!important;border:none!important;border-radius:8px!important;padding:8px 10px!important;text-align:left!important;text-decoration:none!important;font-size:.83rem!important;box-shadow:none!important;}
+        .nav-dropdown .menu-item:hover,.nav-dropdown .menu-item.active{background:rgba(255,255,255,.10)!important;}
+        .main-content{padding:16px!important;}
+        .card{border-radius:16px!important;}
+        .card-header{padding:10px 12px!important;min-height:auto!important;}
+        .card-header h3{font-size:1rem!important;}
+        .card-body{padding:12px!important;}
+        .form-grid{gap:10px!important;}
+        .form-group label{font-size:.76rem!important;margin-bottom:5px!important;}
+        .form-group input,.form-group select,.form-group textarea{padding:8px 10px!important;min-height:36px!important;font-size:.89rem!important;}
+        .btn{padding:8px 11px!important;border-radius:10px!important;font-size:.86rem!important;}
+        .data-table th,.data-table td{padding:8px 9px!important;font-size:.86rem!important;}
+        #lancamentos-section .lancamento-side-column,#lancamentos-section .shortcut-list{display:none!important;}
+        #lancamentos-section .lancamento-shell{grid-template-columns:1fr!important;}
+        #lancamentos-section .lancamento-block:last-of-type,#lancamentos-section #lancamentos-ultimos-lista{display:none!important;}
+        #lancamentos-section .combustivel-block .section-subtitle{display:none!important;}
+
+        #lancamentos-section .fuel-button-grid{grid-template-columns:repeat(2,minmax(230px,1fr))!important;}
+        #lancamentos-section .fuel-button-grid-small{grid-template-columns:repeat(2,minmax(230px,1fr))!important;justify-content:flex-start!important;gap:12px!important;}
+        #lancamentos-section .fuel-btn{padding:6px 8px!important;font-size:.72rem!important;min-height:32px!important;border-radius:8px!important;white-space:nowrap!important;background:#f7fbff!important;border:1px solid #cfe0f7!important;color:#163b69!important;box-shadow:none!important;}
+        #lancamentos-section .fuel-btn:hover,#lancamentos-section .fuel-btn.active{background:#0f5fcb!important;color:#fff!important;border-color:#0f5fcb!important;}        #lancamentos-section .card.inner-card{margin-bottom:12px!important;}
+        .launch-mode-tabs{display:flex!important;gap:8px!important;flex-wrap:wrap!important;margin-bottom:10px!important}
+        .launch-tab{border:1px solid #dbe3ef!important;background:#f7fbff!important;color:#12335b!important;padding:7px 10px!important;border-radius:9px!important;font-weight:700!important;cursor:pointer!important;font-size:.82rem!important}
+        .launch-tab.active{background:#0f5fcb!important;color:#fff!important;border-color:#0f5fcb!important}
+        .launch-mini-btn{padding:5px 8px!important;min-width:78px!important;font-size:.74rem!important;border-radius:8px!important}
+        .perm-routine-row{display:grid!important;grid-template-columns:220px 90px repeat(5,80px)!important;gap:8px!important;align-items:center!important;padding:8px 0!important;border-bottom:1px solid #edf2f7!important}
+        .perm-routine-row.header{font-size:.75rem!important;font-weight:800!important;color:#51657f!important;text-transform:uppercase!important}
+        .perm-routine-title{font-weight:700!important;color:#163b69!important}
+        .perm-disabled{opacity:.45!important;pointer-events:none!important}
+        .brand-logo-image,#company-chip-logo{max-height:46px!important}#company-chip-logo{max-width:92px!important;width:auto!important;height:46px!important;object-fit:contain!important;border-radius:10px!important;background:#fff!important;padding:4px!important;border:1px solid rgba(195,145,45,.35)!important}.company-chip{gap:10px!important;padding:8px 12px!important}
+        .company-chip{padding:5px 9px!important;background:rgba(255,255,255,.12)!important;border:1px solid rgba(255,255,255,.14)!important;color:#fff!important}
+        .topbar-center h2{font-size:.92rem!important;margin:0!important;color:#fff!important}
+        .topbar-center p{font-size:.7rem!important;margin:1px 0 0!important;color:rgba(255,255,255,.8)!important}
+        .company-switcher label{font-size:.66rem!important;color:rgba(255,255,255,.86)!important}
+        .company-switcher select{padding:5px 9px!important;border-radius:8px!important;border:1px solid rgba(255,255,255,.16)!important;background:#173d73!important;color:#fff!important}
+        .user-chip{padding:6px 10px!important;background:#173d73!important;color:#fff!important;border:1px solid rgba(255,255,255,.16)!important}
+        .sidebar,.topbar{display:none!important;}
+        #dashboard-section .hero-copy,#dashboard-section .home-shortcuts{display:none!important}
+        #lancamentos-section{padding:0!important;background:transparent!important}
+        #lancamentos-section.active{display:block!important;position:relative!important;inset:auto!important;padding:0!important;background:transparent!important;z-index:auto!important;overflow:visible!important}
+        #lancamentos-section .launch-card{width:100%!important;max-width:none!important;max-height:none!important;overflow:visible!important;border-radius:18px!important;border:1px solid #dbe3ef!important;box-shadow:0 16px 42px rgba(15,23,42,.12)!important}
+        #lancamentos-section .pos-launch-header{position:relative!important;top:auto!important;background:#fff!important;z-index:2!important}
+        .launch-code-row{display:grid!important;grid-template-columns:1.3fr 1fr auto!important;gap:10px!important;align-items:end!important;margin-bottom:10px!important}
+        .launch-kpi-grid{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:10px!important;margin-bottom:12px!important}
+        .launch-kpi{background:#f7fbff!important;border:1px solid #dbe3ef!important;border-radius:12px!important;padding:10px!important}
+        .launch-kpi label{display:block!important;font-size:.72rem!important;color:#5a6f8e!important;margin-bottom:6px!important}
+        .launch-kpi input{width:100%!important}
+        .launch-toolbar{display:flex!important;gap:8px!important;flex-wrap:wrap!important;justify-content:flex-end!important}
+        .launch-toolbar .btn{min-width:120px!important}
+        .pos-launch-body{padding-top:10px!important}
+        .launch-main-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+        .launch-main-grid .field-span-2{grid-column:span 2!important}
+        .launch-main-grid .field-span-4{grid-column:span 4!important}
+        .compact-inline-row{display:grid!important;grid-template-columns:2fr .7fr .8fr .8fr auto!important;gap:8px!important;align-items:end!important}
+        .compact-inline-row .btn{height:36px!important}
+        .launch-footer-note{font-size:.75rem!important;color:#64748b!important}
+        .hero-panel{padding:0!important}
+        .hero-kicker{margin-bottom:4px!important}
+        .launch-close-only{background:#eff5ff!important;color:#12335b!important;border:1px solid #d6e3fb!important}
+        @media (max-width:1200px){.horizontal-topbar{grid-template-columns:1fr!important;justify-items:center!important;text-align:center!important;}.top-actions{justify-content:center!important;flex-wrap:wrap!important;}.horizontal-nav{flex-wrap:wrap!important;justify-content:center!important}}
+        @media (max-width:900px){.launch-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.launch-main-grid,.compact-inline-row,.launch-code-row{grid-template-columns:1fr!important}.launch-toolbar{justify-content:flex-start!important}}
+        @media (max-width:768px){.horizontal-nav{justify-content:flex-start!important;padding:0 10px 8px!important;overflow-x:auto!important;}.nav-dropdown{left:0!important;right:auto!important;min-width:210px!important;}.main-content{padding:14px!important;}.nav-home-item,.nav-group-toggle{padding:5px 8px!important;font-size:.76rem!important}}
+    
+.combustivel-pos-grid{display:grid;grid-template-columns:minmax(260px,320px) 1fr;gap:14px;align-items:start}.combustivel-pos-menu .card-body,.combustivel-pos-form .card-body{height:100%}.fuel-button-grid-pos{grid-template-columns:repeat(2,minmax(110px,1fr))}.pos-caixa-hint{font-size:.92rem;font-weight:600;color:#35557c;margin-bottom:10px}.combustivel-pos-form{min-height:100%}.combustivel-pos-fields{align-items:end}.combustivel-pos-form .pill-info{display:flex;align-items:center;min-height:44px}.fuel-btn{transition:transform .08s ease,box-shadow .08s ease}.fuel-btn:hover{transform:translateY(-1px)}@media (max-width: 1024px){.combustivel-pos-grid{grid-template-columns:1fr}}
+
+
+.elion-launch-card{background:#f8fafc!important;border-radius:18px!important;overflow:hidden!important;}
+.elion-launch-header{display:none!important;}
+.elion-launch-logo{width:64px!important;height:64px!important;max-height:none!important;border-radius:14px!important;background:#fff!important;padding:6px!important;object-fit:contain!important;box-shadow:0 8px 20px rgba(15,23,42,.18)!important;}
+.elion-launch-body{background:#eef2f7!important;}
+.elion-launch-grid{display:grid;grid-template-columns:minmax(360px,420px) 1fr;gap:16px;align-items:start;}
+.elion-info-card,.elion-actions-card,.elion-detail-card,.elion-placeholder-card{border:1px solid #dbe3ef!important;box-shadow:0 10px 24px rgba(15,23,42,.08)!important;background:#fff!important;}
+.elion-mini-grid,.elion-detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+.elion-detail-grid .field-span-2{grid-column:span 2!important;}
+.elion-fuel-stack{display:grid!important;grid-template-columns:repeat(2,minmax(110px,1fr))!important;gap:8px!important;}
+.elion-fuel-stack .fuel-btn{min-height:42px!important;font-size:.86rem!important;font-weight:800!important;border-radius:12px!important;}
+.elion-manutencao-btn{width:100%!important;margin-top:10px!important;min-height:44px!important;font-weight:800!important;}
+.elion-launch-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px;}
+.elion-launch-summary .summary-item{background:#f8fbff;border:1px solid #dbe3ef;border-radius:12px;padding:10px 12px;}
+.elion-launch-summary span{display:block;font-size:.76rem;color:#64748b;margin-bottom:4px;}
+.elion-launch-summary strong{font-size:1.15rem;color:#163b69;}
+.elion-placeholder-card .card-body{min-height:420px;display:flex;align-items:center;justify-content:center;}
+.elion-detail-card .card-body{min-height:420px;}
+@media (max-width: 980px){.elion-launch-grid{grid-template-columns:1fr!important;}.elion-placeholder-card .card-body,.elion-detail-card .card-body{min-height:auto;}}
+
+
+.caixa-launch-grid{grid-template-columns:minmax(340px,390px) 1fr!important;}
+.caixa-left-column .card+.card{margin-top:12px!important;}
+.caixa-right-column .card+.card{margin-top:12px!important;}
+.caixa-fuel-card .card-body{display:grid!important;gap:10px!important;}
+.caixa-entry-card .card-body{display:grid!important;gap:12px!important;}
+.caixa-entry-table-header,.caixa-entry-table-row{display:grid;grid-template-columns:1.45fr .9fr .9fr .9fr 1fr;gap:10px;align-items:end;}
+.caixa-entry-table-header{font-size:.78rem;font-weight:800;color:#52657f;text-transform:uppercase;letter-spacing:.04em;padding:0 2px;}
+.caixa-secondary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+.compact-field input{margin:0!important;}
+.entry-actions-inline{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;}
+.no-card-shell{background:transparent!important;border:none!important;box-shadow:none!important;}
+.caixa-placeholder-body{min-height:150px!important;display:flex;align-items:center;justify-content:center;}
+.caixa-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+@media (max-width:980px){.caixa-launch-grid{grid-template-columns:1fr!important;}.caixa-entry-table-header,.caixa-entry-table-row,.caixa-secondary-grid{grid-template-columns:1fr!important;}}
+
+
+.pos-image2-wrap{background:#eef1f6!important;padding:0!important;}
+.pos-image2-grid{display:grid!important;grid-template-columns:510px 1fr!important;gap:0!important;align-items:stretch!important;}
+.pos-image2-left,.pos-image2-right{background:#fff!important;}
+.pos-image2-left{border-right:1px solid #e5e9f2!important;}
+.pos-image2-block{padding:16px 18px!important;}
+.pos-lanc-title{display:flex!important;align-items:center!important;gap:14px!important;padding:14px 18px 12px!important;border-bottom:1px solid #eceff6!important;background:#fff!important;}
+.pos-lanc-title h3{margin:0!important;font-size:1.15rem!important;color:#2f3650!important;}
+.pos-lanc-title .section-subtitle{display:none!important;}
+.pos-row-line{display:grid!important;grid-template-columns:1fr auto!important;gap:10px!important;align-items:center!important;margin-bottom:10px!important;}
+.pos-row-line .inline-input-action{display:grid!important;grid-template-columns:1fr auto!important;gap:8px!important;width:100%!important;}
+.pos-row-two{display:grid!important;grid-template-columns:1fr 190px!important;gap:10px!important;align-items:center!important;margin-bottom:10px!important;}
+.pos-pay-row{display:grid!important;grid-template-columns:1fr 110px 1fr 110px!important;gap:0!important;align-items:center!important;border:1px solid #dfe5ef!important;border-radius:10px!important;overflow:hidden!important;margin:8px 0 16px!important;}
+.pos-pay-label{padding:10px 14px!important;font-weight:800!important;color:#fff!important;font-size:1rem!important;}
+.pos-pay-value{padding:10px 12px!important;background:#fff8e7!important;font-weight:800!important;color:#b67b00!important;text-align:center!important;font-size:1rem!important;}
+.pos-pay-label.cardao{background:#2c71d1!important;}
+.pos-pay-label.dinheiro{background:#f4b32f!important;}
+.pos-pay-value.cartao{background:#f4f8ff!important;color:#3b2c7b!important;}
+.pos-buttons-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;}
+.pos-buttons-grid .fuel-btn,.pos-buttons-grid .elion-manutencao-btn{min-height:58px!important;font-size:1rem!important;border-radius:8px!important;justify-content:flex-start!important;padding-left:18px!important;}
+.pos-buttons-grid .fuel-btn[data-selected="1"],.pos-buttons-grid .fuel-btn.active{box-shadow:inset 0 0 0 2px rgba(255,255,255,.45)!important;}
+.pos-image2-right .card.inner-card{border:none!important;box-shadow:none!important;background:transparent!important;margin:0!important;}
+.pos-top-table{padding:18px 18px 8px!important;border-bottom:1px solid #eceff6!important;}
+.pos-top-table table{width:100%!important;border-collapse:collapse!important;}
+.pos-top-table th,.pos-top-table td{border:1px solid #dfe5ef!important;padding:12px 10px!important;text-align:center!important;font-size:.94rem!important;}
+.pos-top-table th{background:#f5f7fb!important;color:#394256!important;font-weight:800!important;}
+.pos-top-table td{background:#fff!important;color:#2f3650!important;min-height:56px!important;}
+.pos-summary-strip{display:grid!important;grid-template-columns:1fr auto auto auto!important;gap:24px!important;align-items:end!important;padding:12px 20px 16px!important;color:#35146f!important;font-weight:800!important;font-size:1.1rem!important;}
+.pos-summary-strip .sum-block{display:grid!important;gap:4px!important;text-align:right!important;}
+.pos-summary-strip .sum-block span{font-size:.84rem!important;text-transform:uppercase!important;}
+.pos-detail-shell{padding:16px 18px 18px!important;}
+.pos-detail-shell h4{margin:0 0 14px!important;font-size:1rem!important;color:#2f3650!important;}
+.pos-detail-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important;align-items:end!important;}
+.pos-detail-grid .span-2{grid-column:span 2!important;}
+.pos-detail-grid .span-4{grid-column:span 4!important;}
+.pos-detail-grid label{font-size:.84rem!important;font-weight:700!important;color:#4c5970!important;display:block!important;margin-bottom:6px!important;}
+.pos-detail-grid input{width:100%!important;padding:10px 12px!important;border:1px solid #dfe5ef!important;border-radius:8px!important;font-size:.96rem!important;}
+.pos-action-bar{display:flex!important;justify-content:flex-end!important;gap:16px!important;margin-top:16px!important;}
+.pos-action-bar .btn{min-width:180px!important;min-height:58px!important;font-size:1rem!important;font-weight:800!important;border-radius:8px!important;}
+#launch-placeholder-panel{display:none!important;}
+#combustivel-item-panel.hidden,#manutencao-item-panel.hidden{display:none!important;}
+#combustivel-item-panel:not(.hidden),#manutencao-item-panel:not(.hidden){display:block!important;}
+.entry-actions-inline{display:none!important;}
+@media (max-width:1100px){.pos-image2-grid{grid-template-columns:1fr!important;}.pos-image2-left{border-right:none!important;border-bottom:1px solid #e5e9f2!important;}.pos-summary-strip{grid-template-columns:1fr 1fr!important;gap:12px!important;}.pos-detail-grid{grid-template-columns:1fr 1fr!important;}.pos-detail-grid .span-2,.pos-detail-grid .span-4{grid-column:span 2!important;}}
+
+
+.elion-brand-top-logo{width:104px!important;height:104px!important;border-radius:50%!important;background:#fff!important;border:2px solid rgba(255,255,255,.28)!important;padding:6px!important;object-fit:contain!important;}
+.pos-image2-wrap{border-radius:18px!important;overflow:hidden!important;}
+.pos-image2-left{background:#fbfbfd!important;}
+.pos-image2-right{background:#ffffff!important;}
+.pos-image2-block{padding:14px 16px!important;}
+.pos-lanc-title{padding:14px 16px 12px!important;background:#fff!important;}
+.elion-launch-logo{width:138px!important;height:138px!important;object-fit:contain!important;border-radius:50%!important;background:#fff!important;border:2px solid #c3912d!important;padding:12px!important;box-shadow:0 10px 24px rgba(166,110,8,.16)!important;}
+.company-routine-logo{width:210px!important;height:104px!important;max-width:210px!important;max-height:104px!important;object-fit:contain!important;border-radius:12px!important;background:#fff!important;border:1px solid #d8e1ec!important;padding:8px!important;box-shadow:0 8px 18px rgba(15,23,42,.12)!important;}
+.pos-row-two label{font-weight:700!important;color:#394256!important;}
+.pos-row-two input,.pos-row-line input{border-radius:8px!important;border:1px solid #d9dfeb!important;background:#fff!important;min-height:40px!important;}
+.pos-pay-row{grid-template-columns:160px 1fr 130px 1fr!important;border-radius:8px!important;background:#fff!important;}
+.pos-pay-row input{border:none!important;border-left:1px solid #dfe5ef!important;border-radius:0!important;min-height:44px!important;font-size:1rem!important;font-weight:800!important;text-align:center!important;box-shadow:none!important;}
+.pos-pay-label.dinheiro{background:linear-gradient(180deg,#f6bf3a,#eca622)!important;color:#fff!important;}
+.pos-pay-label.cardao{background:linear-gradient(180deg,#3778d3,#215fb9)!important;color:#fff!important;}
+.pos-buttons-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;}
+.fuel-btn,.elion-manutencao-btn,.elion-revisao-btn{display:flex!important;align-items:center!important;gap:10px!important;justify-content:flex-start!important;padding:0 16px!important;min-height:58px!important;border-radius:8px!important;border:1px solid rgba(0,0,0,.14)!important;font-size:1rem!important;font-weight:800!important;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.24), 0 2px 6px rgba(15,23,42,.08)!important;}
+.fuel-btn .icon-glyph,.elion-manutencao-btn .icon-glyph,.elion-revisao-btn .icon-glyph{font-size:1.45rem!important;line-height:1!important;display:inline-flex!important;width:28px!important;justify-content:center!important;}
+.fuel-btn.gasolina95{background:linear-gradient(180deg,#2c8c6d,#246f58)!important;}
+.fuel-btn.gasolina98{background:linear-gradient(180deg,#83b156,#688f40)!important;}
+.fuel-btn.gasoleo{background:linear-gradient(180deg,#3d82db,#2f69b6)!important;}
+.fuel-btn.gpl{background:linear-gradient(180deg,#f0ab33,#df9121)!important;}
+.elion-manutencao-btn{background:linear-gradient(180deg,#4d4b68,#35344f)!important;color:#fff!important;}
+.elion-revisao-btn{background:linear-gradient(180deg,#8b5cf6,#6d28d9)!important;color:#fff!important;}
+.fuel-btn.active,.elion-manutencao-btn.active,.elion-revisao-btn.active{box-shadow:inset 0 0 0 2px rgba(255,255,255,.58)!important;transform:translateY(1px)!important;}
+.pos-top-table{padding:14px 16px 8px!important;}
+.pos-top-table th{background:#f2f4f8!important;font-size:.92rem!important;}
+.pos-top-table td{height:56px!important;}
+.pos-summary-strip{padding:10px 16px 14px!important;}
+.pos-detail-shell{padding:14px 16px 16px!important;background:#fff!important;}
+.pos-detail-shell h4{font-size:1.05rem!important;}
+.pos-detail-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;}
+.pos-detail-grid input{min-height:40px!important;border-radius:8px!important;}
+.pos-action-bar .btn:first-child{background:linear-gradient(180deg,#f4bd39,#eca622)!important;color:#fff!important;border:1px solid #d69516!important;}
+.pos-action-bar .btn:last-child{background:linear-gradient(180deg,#df5a4d,#c93e32)!important;color:#fff!important;border:1px solid #b43329!important;}
+.pos-action-bar .btn{min-width:200px!important;min-height:60px!important;font-size:1.05rem!important;box-shadow:0 4px 10px rgba(15,23,42,.08)!important;}
+.lancamento-botoes-verticais{display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;gap:12px!important;}
+.lancamento-botoes-verticais #fuel-button-grid{width:100%!important;}
+.lancamento-botoes-secundarios{display:grid!important;grid-template-columns:repeat(2,minmax(220px,1fr))!important;gap:12px!important;width:100%!important;}
+.lancamento-botoes-secundarios #revisao-button-slot,.lancamento-botoes-secundarios #manutencao-button-slot{display:grid!important;}
+.lancamento-botoes-secundarios .elion-revisao-btn,.lancamento-botoes-secundarios .elion-manutencao-btn{width:100%!important;min-height:82px!important;}
+@media (max-width:900px){.lancamento-botoes-secundarios{grid-template-columns:1fr!important;}}
+
+.inline-input-action .btn.btn-outline{background:#fffaf0!important;color:#c48716!important;border:1px solid #e7c170!important;font-weight:800!important;}
+#combustivel-item-panel,#manutencao-item-panel{padding-top:2px!important;}
+
+.elion-title-stack{display:flex!important;flex-direction:column!important;gap:2px!important;}
+.elion-title-stack h3{margin:0!important;font-size:2rem!important;line-height:1!important;color:#161b28!important;font-weight:800!important;}
+.elion-title-stack .title-sub{font-size:1rem!important;color:#6a4a12!important;font-style:italic!important;font-weight:700!important;}
+#lancamentos-section .pos-pay-row-strong{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important;align-items:end!important;margin-top:8px!important;}
+#lancamentos-section .pos-pay-col{display:flex!important;flex-direction:column!important;gap:8px!important;}
+#lancamentos-section .pos-money-input{height:62px!important;border:2px solid #d4deec!important;border-radius:14px!important;background:#fff!important;font-size:1.45rem!important;font-weight:800!important;color:#1f2f46!important;padding:0 16px!important;box-shadow:inset 0 1px 2px rgba(15,23,42,.04)!important;}
+#lancamentos-section .pos-money-input:focus{border-color:#3b82f6!important;box-shadow:0 0 0 4px rgba(59,130,246,.12)!important;outline:none!important;}
+#lancamentos-section .pos-total-highlight{margin-top:12px!important;}
+#lancamentos-section .pos-total-highlight label{font-size:1.08rem!important;font-weight:900!important;color:#1f2f4d!important;display:block!important;margin-bottom:8px!important;}
+#lancamentos-section .pos-pay-label{font-size:1rem!important;font-weight:900!important;letter-spacing:.02em!important;padding:8px 12px!important;border-radius:10px!important;text-align:center!important;margin-bottom:8px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.4), 0 3px 10px rgba(15,23,42,.08)!important;}
+#lancamentos-section .pos-pay-col .pos-money-input{height:56px!important;font-size:1.5rem!important;font-weight:800!important;text-align:right!important;padding:10px 14px!important;border:2px solid #cdd9ea!important;border-radius:12px!important;background:#fff!important;color:#16324f!important;}
+#lancamentos-section .pos-total-input{height:60px!important;font-size:1.7rem!important;font-weight:900!important;text-align:right!important;padding:10px 14px!important;border:2px solid #7b61ff!important;border-radius:14px!important;background:#f6f2ff!important;color:#311b92!important;box-shadow:0 4px 14px rgba(91,33,182,.08)!important;}
+#lancamentos-section .pos-summary-strip-single{grid-template-columns:1fr!important;justify-items:end!important;}
+#lancamentos-section .destaque-total span{font-size:.86rem!important;text-transform:uppercase!important;letter-spacing:.03em!important;}
+#lancamentos-section .destaque-total strong{font-size:2rem!important;color:#35146f!important;}
+#lancamentos-section .pos-total-input{height:66px!important;border:2px solid #cfdced!important;border-radius:16px!important;background:linear-gradient(180deg,#f8fbff,#eef4fb)!important;font-size:1.7rem!important;font-weight:900!important;color:#183153!important;padding:0 18px!important;box-shadow:0 8px 18px rgba(15,23,42,.06)!important;}
+#lancamentos-section .icon-glyph{display:inline-block!important;width:30px!important;height:30px!important;background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important;}
+#lancamentos-section .fuel-nozzle{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23fff' d='M18 9h16c3.3 0 6 2.7 6 6v34h4c2.2 0 4 1.8 4 4v2H12v-2c0-2.2 1.8-4 4-4h2V9zm26 8 7 7v9c0 1.7 1.3 3 3 3s3-1.3 3-3V18h4v15c0 3.9-3.1 7-7 7s-7-3.1-7-7v-7l-7-7 4-4zM22 15v12h12V15H22z'/%3E%3C/svg%3E")!important;}
+#lancamentos-section .wrench-icon{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23fff' d='M56.6 18.3a14 14 0 0 1-18.9 13.1L18.4 50.7a6 6 0 1 1-8.5-8.5l19.3-19.3A14 14 0 0 1 42.4 3.9l-8.5 8.5 9.2 9.2 8.5-8.5a14 14 0 0 1 5 5.2z'/%3E%3C/svg%3E")!important;}
+#lancamentos-section .fuel-btn,#lancamentos-section .elion-manutencao-btn{min-height:64px!important;font-size:1.05rem!important;}
+
+
+#lancamentos-section .pos-lanc-title{position:relative!important;justify-content:space-between!important;}
+#lancamentos-section .pos-title-left{display:flex!important;align-items:center!important;gap:14px!important;}
+#lancamentos-section .pos-close-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:46px!important;height:46px!important;border-radius:12px!important;border:1px solid #d6dde9!important;background:#fff!important;color:#6a7486!important;font-size:1.9rem!important;line-height:1!important;cursor:pointer!important;box-shadow:0 3px 10px rgba(15,23,42,.06)!important;}
+#lancamentos-section .pos-close-btn:hover{background:#f7f9fc!important;color:#1f2b3d!important;}
+#lancamentos-section .pos-detail-card-head{display:flex!important;align-items:center!important;justify-content:space-between!important;margin-bottom:14px!important;padding-bottom:10px!important;border-bottom:1px solid #e7ecf4!important;}
+#lancamentos-section .pos-detail-card-head h4{margin:0!important;}
+#lancamentos-section .pos-detail-card-head .mini-close{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:34px!important;height:34px!important;border-radius:10px!important;border:1px solid #dce3ee!important;background:#fff!important;color:#6c7689!important;font-size:1.4rem!important;cursor:pointer!important;}
+#lancamentos-section .pos-detail-card-head .mini-close:hover{background:#f7f9fc!important;color:#1f2b3d!important;}
+#lancamentos-section .pos-panel-empty{min-height:320px!important;display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;color:#5f6c82!important;background:linear-gradient(180deg,#f9fbff,#f1f5fb)!important;border:1px dashed #d5deeb!important;border-radius:16px!important;padding:24px!important;}
+#lancamentos-section .pos-panel-empty strong{display:block!important;font-size:1.05rem!important;color:#25324a!important;margin-bottom:8px!important;}
+#lancamentos-section .pos-detail-grid textarea{width:100%!important;padding:10px 12px!important;border:1px solid #dfe5ef!important;border-radius:8px!important;font-size:.96rem!important;resize:vertical!important;min-height:84px!important;}
+#lancamentos-section .pos-help-pill{display:inline-flex!important;align-items:center!important;gap:8px!important;padding:8px 12px!important;background:#f6f9fe!important;border:1px solid #dde7f5!important;border-radius:999px!important;color:#35557c!important;font-weight:700!important;font-size:.86rem!important;}
+#lancamentos-section .fuel-btn.gasolina95{background-image:url('{% static "Elion/img/gasolina95_btn.png" %}')!important;background-size:cover!important;background-position:center!important;}
+#lancamentos-section .fuel-btn.gasolina98{background-image:url('{% static "Elion/img/gasolina98_btn.png" %}')!important;background-size:cover!important;background-position:center!important;}
+#lancamentos-section .fuel-btn.gasoleo{background-image:url('{% static "Elion/img/gasoleo_btn.png" %}')!important;background-size:cover!important;background-position:center!important;}
+#lancamentos-section .fuel-btn.gpl{background-image:url('{% static "Elion/img/gpl_btn.png" %}')!important;background-size:cover!important;background-position:center!important;}
+#lancamentos-section .elion-manutencao-btn{background-image:url('{% static "Elion/img/manutencao_btn.png" %}')!important;background-size:cover!important;background-position:center!important;}
+#lancamentos-section .fuel-btn span:last-child,#lancamentos-section .elion-manutencao-btn span:last-child{text-shadow:0 1px 1px rgba(0,0,0,.18)!important;}
+
+
+#lancamentos-section .fuel-btn,#lancamentos-section .elion-manutencao-btn{
+    background-repeat:no-repeat!important;
+    background-size:100% 100%!important;
+    background-position:center!important;
+    color:transparent!important;
+    text-shadow:none!important;
+}
+#lancamentos-section .fuel-btn .icon-glyph,
+#lancamentos-section .elion-manutencao-btn .icon-glyph{display:none!important;}
+#lancamentos-section .fuel-btn .sr-only,
+#lancamentos-section .elion-manutencao-btn .sr-only{
+    position:absolute!important;
+    width:1px!important;
+    height:1px!important;
+    padding:0!important;
+    margin:-1px!important;
+    overflow:hidden!important;
+    clip:rect(0,0,0,0)!important;
+    white-space:nowrap!important;
+    border:0!important;
+}
+
+
+.pos-title-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pos-fuel-selector-bar{display:grid!important;grid-template-columns:repeat(5,minmax(120px,1fr));gap:10px;align-items:stretch}
+.pos-fuel-selector-bar #manutencao-button-slot{display:block}
+.pos-fuel-selector-bar .fuel-btn,.pos-fuel-selector-bar .elion-manutencao-btn{min-height:58px!important}
+.crm-color-note{font-size:.9rem;color:#5f6f86}
+#lancamentos-section .fuel-btn,#lancamentos-section .elion-manutencao-btn{background-image:none!important;color:#fff!important;padding:0 12px!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:10px!important}
+#lancamentos-section .fuel-btn .icon-glyph,#lancamentos-section .elion-manutencao-btn .icon-glyph{display:inline-flex!important;width:24px!important;justify-content:center!important;font-size:1.15rem!important}
+#lancamentos-section .fuel-btn .btn-label,#lancamentos-section .elion-manutencao-btn .btn-label{display:block!important;white-space:normal!important;line-height:1.1!important;text-align:left!important;font-size:.92rem!important;font-weight:800!important}
+#lancamentos-section .fuel-btn.gasolina95{background:linear-gradient(180deg,#2c8c6d,#246f58)!important}
+#lancamentos-section .fuel-btn.gasolina98{background:linear-gradient(180deg,#83b156,#688f40)!important}
+#lancamentos-section .fuel-btn.gasoleo{background:linear-gradient(180deg,#3d82db,#2f69b6)!important}
+#lancamentos-section .fuel-btn.gpl{background:linear-gradient(180deg,#f0ab33,#df9121)!important}
+#lancamentos-section .fuel-btn.outro-combustivel{background:linear-gradient(180deg,#0f766e,#115e59)!important}
+#lancamentos-section .elion-manutencao-btn{background:linear-gradient(180deg,#2d2f39,#111827)!important}
+#lancamentos-section .fuel-btn img,#lancamentos-section .elion-manutencao-btn img{display:none!important}
+.panel-add-action{margin-top:14px;display:flex;justify-content:flex-end}
+.lancamento-botoes-placeholder-info{margin-top:12px}
+@media (max-width:1200px){.pos-fuel-selector-bar{grid-template-columns:repeat(2,minmax(160px,1fr))}}
+
+.pos-close-btn{display:none!important;}
+        /* refazer: lancamento em pagina, botoes fixos e logo maior */
+        #lancamentos-section .elion-launch-logo{max-height:96px!important;width:auto!important;object-fit:contain!important}
+        #lancamentos-section .pos-lanc-title{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:18px!important;flex-wrap:wrap!important}
+        #lancamentos-section .pos-title-left{display:flex!important;align-items:center!important;gap:16px!important;min-width:320px!important}
+        #lancamentos-section .elion-title-stack h3{font-size:1.45rem!important;line-height:1.1!important}
+        #lancamentos-section .title-sub{font-size:1rem!important;font-weight:800!important;color:#35557c!important}
+        #lancamentos-section .company-routine-logo{max-height:120px!important;max-width:220px!important;object-fit:contain!important}
+        #lancamentos-section .pos-image2-grid{display:grid!important;grid-template-columns:minmax(340px,0.95fr) minmax(420px,1.25fr)!important;gap:20px!important;align-items:start!important}
+        #lancamentos-section .pos-image2-left,#lancamentos-section .pos-image2-right,#lancamentos-section .pos-image2-block{min-width:0!important}
+        #lancamentos-section .pos-top-table{overflow:auto!important;border:1px solid #dbe3ef!important;border-radius:16px!important;background:#fff!important}
+        #lancamentos-section .pos-top-table table{width:100%!important;min-width:980px!important;border-collapse:collapse!important}
+        #lancamentos-section .pos-top-table th,#lancamentos-section .pos-top-table td{white-space:nowrap!important}
+        #lancamentos-section .pos-detail-shell{margin-top:16px!important;padding:16px!important;border:1px solid #dbe3ef!important;border-radius:18px!important;background:linear-gradient(180deg,#f8fbff,#ffffff)!important}
+        #lancamentos-section .pos-fuel-selector-bar{margin-top:16px!important;padding-top:16px!important;border-top:1px solid #e5edf6!important}
+        #lancamentos-section .lancamento-botoes-verticais{display:grid!important;grid-template-columns:1fr!important;gap:14px!important}
+        #lancamentos-section #fuel-button-grid{order:1!important;display:grid!important;grid-template-columns:repeat(2,minmax(180px,1fr))!important;gap:12px!important;width:100%!important}
+        #lancamentos-section .lancamento-botoes-secundarios{order:2!important;display:grid!important;grid-template-columns:repeat(2,minmax(220px,1fr))!important;gap:10px!important;width:100%!important}
+        #lancamentos-section #revisao-button-slot{order:2!important;display:grid!important;grid-template-columns:1fr!important;gap:12px!important}
+        #lancamentos-section #manutencao-button-slot{order:3!important;display:grid!important;grid-template-columns:1fr!important;gap:12px!important}
+        #lancamentos-section .fuel-btn,#lancamentos-section .elion-revisao-btn,#lancamentos-section .elion-manutencao-btn{min-height:84px!important;border-radius:16px!important;padding:14px 16px!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:12px!important}
+        #lancamentos-section .fuel-btn .btn-label,#lancamentos-section .elion-revisao-btn .btn-label,#lancamentos-section .elion-manutencao-btn .btn-label{display:block!important;white-space:normal!important;line-height:1.15!important;text-align:left!important;font-size:1rem!important;font-weight:800!important}
+        #lancamentos-section .elion-revisao-btn{background:linear-gradient(180deg,#1f4f99,#173b73)!important;color:#fff!important;box-shadow:0 10px 22px rgba(23,59,115,.24)!important}
+        #lancamentos-section .elion-manutencao-btn{background:linear-gradient(180deg,#1f2937,#111827)!important;color:#fff!important;box-shadow:0 10px 22px rgba(17,24,39,.26)!important}
+        #lancamentos-section .elion-revisao-btn.active,#lancamentos-section .elion-manutencao-btn.active,#lancamentos-section .fuel-btn.active{outline:3px solid rgba(255,255,255,.55)!important;transform:translateY(-1px)!important}
+        #lancamentos-section .pos-detail-card-head h4{font-size:1.05rem!important}
+        @media (max-width: 1180px){
+            #lancamentos-section .pos-image2-grid{grid-template-columns:1fr!important}
+        }
+        @media (max-width: 760px){
+            #lancamentos-section #fuel-button-grid{grid-template-columns:1fr!important}
+            #lancamentos-section .pos-title-left{min-width:0!important;width:100%!important}
+            #lancamentos-section .pos-title-actions{width:100%!important;justify-content:flex-start!important}
+        }
+
+
+
+/* Ajuste final compacto dos botões da rotina de lançamentos */
+#lancamentos-section .pos-fuel-selector-bar.lancamento-botoes-topo{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:10px !important;
+    align-items:start !important;
+    margin-bottom:10px !important;
+}
+#lancamentos-section .lancamento-botoes-topo #fuel-button-grid,
+#lancamentos-section .lancamento-botoes-topo .lancamento-botoes-secundarios{
+    width:100% !important;
+}
+#lancamentos-section .lancamento-botoes-topo #fuel-button-grid{
+    display:grid !important;
+    grid-template-columns:repeat(2, minmax(170px, 1fr)) !important;
+    gap:8px !important;
+}
+#lancamentos-section .lancamento-botoes-topo .lancamento-botoes-secundarios{
+    display:grid !important;
+    grid-template-columns:repeat(2, minmax(170px, 1fr)) !important;
+    gap:8px !important;
+}
+#lancamentos-section .lancamento-botoes-topo #revisao-button-slot,
+#lancamentos-section .lancamento-botoes-topo #manutencao-button-slot{
+    display:block !important;
+    width:100% !important;
+}
+#lancamentos-section .lancamento-botoes-topo .fuel-btn,
+#lancamentos-section .lancamento-botoes-topo .elion-manutencao-btn,
+#lancamentos-section .lancamento-botoes-topo .elion-revisao-btn{
+    width:100% !important;
+    min-height:42px !important;
+    height:42px !important;
+    padding:0 12px !important;
+    border-radius:10px !important;
+    font-size:.86rem !important;
+    line-height:1 !important;
+    gap:8px !important;
+    box-shadow:0 2px 6px rgba(15,23,42,.10) !important;
+}
+#lancamentos-section .lancamento-botoes-topo .fuel-btn .icon-glyph,
+#lancamentos-section .lancamento-botoes-topo .elion-manutencao-btn .icon-glyph,
+#lancamentos-section .lancamento-botoes-topo .elion-revisao-btn .icon-glyph{
+    width:20px !important;
+    height:20px !important;
+    font-size:1rem !important;
+    border-radius:6px !important;
+    flex:0 0 20px !important;
+    background:rgba(255,255,255,.18) !important;
+}
+#lancamentos-section .lancamento-botoes-topo .fuel-btn .btn-label,
+#lancamentos-section .lancamento-botoes-topo .elion-manutencao-btn .btn-label,
+#lancamentos-section .lancamento-botoes-topo .elion-revisao-btn .btn-label{
+    font-size:.86rem !important;
+    line-height:1 !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+}
+#lancamentos-section .lancamento-botoes-topo .elion-manutencao-btn,
+#lancamentos-section .lancamento-botoes-topo .elion-revisao-btn{
+    margin-top:0 !important;
+}
+@media (max-width: 900px){
+    #lancamentos-section .lancamento-botoes-topo #fuel-button-grid,
+    #lancamentos-section .lancamento-botoes-topo .lancamento-botoes-secundarios{
+        grid-template-columns:1fr !important;
+    }
+}
+
+
+
+/* ===== AJUSTES FINAIS SOLICITADOS - LOGO, BARRA E FOLHA DE CAIXA ===== */
+.horizontal-shell,
+.horizontal-topbar,
+.horizontal-nav,
+.nav-home-item,
+.nav-group-toggle{
+    background:#06182a !important;
+    color:#ffffff !important;
+}
+.horizontal-shell{
+    border-bottom:1px solid rgba(212,163,43,.55) !important;
+    box-shadow:0 8px 28px rgba(0,0,0,.22) !important;
+}
+.horizontal-topbar{min-height:82px !important;padding:10px 16px !important;}
+.horizontal-nav{padding:0 16px 10px !important;border-top:1px solid rgba(212,163,43,.22) !important;}
+.brand-horizontal.brand-logo-only{display:flex !important;align-items:center !important;gap:0 !important;min-width:340px !important;}
+.brand-horizontal.brand-logo-only .elion-brand-top-logo{
+    width:390px !important;
+    height:104px !important;
+    max-height:104px !important;
+    max-width:390px !important;
+    object-fit:contain !important;
+    border-radius:16px !important;
+    background:transparent !important;
+    border:none !important;
+    padding:0 !important;
+    box-shadow:none !important;
+}
+.home-hero-v2{min-height:250px!important;}
+.home-hero-logo img{
+    width:260px!important;
+    height:260px!important;
+    max-width:32vw!important;
+    max-height:260px!important;
+    object-fit:contain!important;
+}
+@media (max-width:900px){
+    .brand-horizontal.brand-logo-only{min-width:220px!important;}
+    .brand-horizontal.brand-logo-only .elion-brand-top-logo{width:260px!important;height:78px!important;max-width:60vw!important;max-height:78px!important;}
+    .home-hero-v2{min-height:auto!important;align-items:flex-start!important;}
+    .home-hero-logo img{width:180px!important;height:180px!important;max-width:40vw!important;}
+}
+.brand-horizontal h1,.brand-horizontal p{display:none !important;}
+.nav-home-item,.nav-group-toggle{border-color:rgba(212,163,43,.32)!important;}
+.nav-home-item:hover,.nav-group-toggle:hover,.nav-group.open .nav-group-toggle{background:#0b2540!important;color:#f2c45b!important;}
+.nav-dropdown{background:#071d33!important;border-color:rgba(212,163,43,.30)!important;}
+.nav-dropdown .menu-item:hover,.nav-dropdown .menu-item.active{background:#0b2540!important;color:#f2c45b!important;}
+.company-switcher select{background:#0b2540!important;color:#fff!important;border:1px solid rgba(212,163,43,.45)!important;}
+.company-chip{background:#0b2540!important;border:1px solid rgba(212,163,43,.45)!important;color:#fff!important;}
+#company-chip-logo{background:#fff!important;}
+.user-chip{background:#0b2540!important;color:#fff!important;border:1px solid rgba(212,163,43,.45)!important;}
+#lancamentos-section .pos-lanc-title{background:#06182a!important;border-bottom:1px solid rgba(212,163,43,.35)!important;}
+#lancamentos-section .elion-launch-logo-wide{
+    width:280px !important;
+    height:92px !important;
+    max-width:280px !important;
+    max-height:92px !important;
+    object-fit:contain !important;
+    border:none !important;
+    border-radius:16px !important;
+    padding:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+}
+#lancamentos-section .elion-title-stack{display:none!important;}
+#relatorio-caixa-lista .report-summary-item{background:#fff!important;color:#111827!important;border:1px solid #d9e1ec!important;}
+#relatorio-caixa-lista .report-summary-item strong,#relatorio-caixa-lista .report-summary-item span{color:#111827!important;}
+
+</style>
+</head>
+<body>
+<div class="app-shell">
+    <header class="horizontal-shell">
+        <div class="horizontal-topbar">
+            <div class="brand brand-horizontal brand-logo-only">
+                <img src="{% if logo_paineis_url %}{{ logo_paineis_url }}{% else %}{% static 'Elion/img/logo_barra_elion.png' %}{% endif %}" class="brand-logo-image elion-brand-top-logo" alt="Elion Gestão">
+            </div>
+
+            <div class="topbar-center">
+                <h2 id="page-title">Menu Inicial</h2>
+                <p id="page-subtitle">Visão geral do sistema</p>
+            </div>
+
+            <div class="top-actions">
+                {% if empresas_usuario %}
+                <div class="company-switcher">
+                    <label for="empresa-ativa-select">Empresa ativa</label>
+                    <select id="empresa-ativa-select" onchange="trocarEmpresaAtiva(this.value)">
+                        {% for empresa in empresas_usuario %}
+                        <option value="{{ empresa.id }}" {% if empresa_ativa and empresa.id == empresa_ativa.id %}selected{% endif %}>{{ empresa.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+                {% if empresa_ativa %}
+                <span class="company-chip" id="company-chip-display">
+                    {% if empresa_ativa.logo %}<img src="{{ empresa_ativa.logo.url }}" alt="Logo {{ empresa_ativa.nome }}" id="company-chip-logo" style="height:65px;">{% endif %}
+                    <span id="company-chip-name">{{ empresa_ativa.nome }}</span>
+                </span>
+                {% endif %}
+                <div class="user-menu-wrap">
+                    <button type="button" class="user-chip user-chip-button" id="user-menu-toggle">{{ request.user.username }}</button>
+                    <div class="user-dropdown hidden" id="user-dropdown-menu">
+                        <button type="button" class="user-dropdown-item" onclick="abrirModalAlterarSenhaPropria()">Alterar senha</button>
+                        <a href="{% url 'logout' %}" class="user-dropdown-item user-dropdown-link">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="horizontal-nav" id="horizontal-nav">
+            <button type="button" class="menu-item nav-home-item active" data-section="dashboard-section">Menu Inicial</button>
+
+            <div class="nav-group" data-group="crm">
+                <button type="button" class="nav-group-toggle">CRM</button>
+                <div class="nav-dropdown">
+                    <button type="button" class="menu-item" data-section="fornecedor-section">Fornecedor</button>
+                    <button type="button" class="menu-item" data-section="funcionario-section">Funcionário</button>
+                    <button type="button" class="menu-item" data-section="frota-section">Frota</button>
+                    <button type="button" class="menu-item" data-section="combustivel-section">Combustível</button>
+                </div>
+            </div>
+
+            <div class="nav-group" data-group="fornecedores">
+                <button type="button" class="nav-group-toggle">Fornecedores</button>
+                <div class="nav-dropdown">
+                    <button type="button" class="menu-item" data-section="lancamentos-section">Lançamentos de Fatura</button>
+                    <button type="button" class="menu-item" data-section="consulta-section">Consulta de Lançamentos</button>
+                    <button type="button" class="menu-item" data-section="baixa-faturas-section">Pagamentos a Fornecedor</button>
+                </div>
+            </div>
+
+            <div class="nav-group" data-group="transporte">
+                <button type="button" class="nav-group-toggle">Transporte</button>
+                <div class="nav-dropdown">
+                    <button type="button" class="menu-item" data-section="revisao-frota-section">Revisão de Frota</button>
+                    <button type="button" class="menu-item" data-section="relatorio-documentos-section">Documento de Frota</button>
+                </div>
+            </div>
+
+            <div class="nav-group" data-group="relatorios">
+                <button type="button" class="nav-group-toggle">Relatórios</button>
+                <div class="nav-dropdown nav-dropdown-wide">
+                    <button type="button" class="menu-item" data-section="relatorio-financeiro-section">Contas a Pagar</button>
+                    <button type="button" class="menu-item" data-section="relatorio-fornecedor-section">Análise por Fornecedor</button>
+                    <button type="button" class="menu-item" data-section="relatorio-faturas-section">Relatório de Baixa de Faturas</button>
+                    <button type="button" class="menu-item" data-section="relatorio-caixa-section">Folha de Caixa</button>
+                    <button type="button" class="menu-item" data-section="relatorio-combustivel-section">Gestão de Combustível</button>
+                    <button type="button" class="menu-item" data-section="relatorio-documentos-section">Vencimento de Documentos</button>
+                </div>
+            </div>
+
+            <div class="nav-group" data-group="config-admin">
+                <button type="button" class="nav-group-toggle">Configurações</button>
+                <div class="nav-dropdown">
+                    <button type="button" class="menu-item" data-section="empresa-section">Empresa</button>
+                    <button type="button" class="menu-item" data-section="usuario-section">Utilizadores e Permissões</button>
+                    <a class="menu-item" href="{% url 'configuracoes_sistema' %}">Sistema, Logo e Recuperação</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+<section id="dashboard-section" class="content-section active">
+    <div class="home-dashboard-v2">
+        <div class="home-hero-v2">
+            <div class="home-hero-text">
+                <div class="home-eyebrow">Painel operacional</div>
+                <h2>Bem-vinda ao <span>Elion Gestão</span></h2>
+                <p>Financeiro, caixa, faturas, frota e alertas organizados num só lugar.</p>
+            </div>
+            <div class="home-hero-logo">
+                <img src="{% if logo_paineis_url %}{{ logo_paineis_url }}{% else %}{% static 'Elion/img/logo_oficial_elion.png' %}{% endif %}" alt="Elion Gestão">
+            </div>
+        </div>
+
+        <div class="home-grid-v2">
+            <div class="home-card-v2">
+                <div class="home-card-title-row">
+                    <div>
+                        <h3>Resumo Financeiro</h3>
+                        <p>Selecione o mês para analisar os valores.</p>
+                    </div>
+                    <select id="home-resumo-mes" class="home-month-select">
+                        <option value="">Todos</option>
+                        <option value="01">Janeiro</option>
+                        <option value="02">Fevereiro</option>
+                        <option value="03">Março</option>
+                        <option value="04">Abril</option>
+                        <option value="05">Maio</option>
+                        <option value="06">Junho</option>
+                        <option value="07">Julho</option>
+                        <option value="08">Agosto</option>
+                        <option value="09">Setembro</option>
+                        <option value="10">Outubro</option>
+                        <option value="11">Novembro</option>
+                        <option value="12">Dezembro</option>
+                    </select>
+                </div>
+                <div class="home-summary-v2">
+                    <div class="home-donut-v2">
+                        <div class="home-donut-center">
+                            <strong id="home-total-geral">0,00 €</strong>
+                            <span>Total Geral</span>
+                        </div>
+                    </div>
+                    <div class="home-summary-list">
+                        <div><span class="dot dot-green"></span>Dinheiro <strong id="home-total-dinheiro">0,00 €</strong></div>
+                        <div><span class="dot dot-gold"></span>Cartão <strong id="home-total-cartao">0,00 €</strong></div>
+                        <div><span class="dot dot-purple"></span>Nota de Crédito <strong id="home-total-nota">0,00 €</strong></div>
+                        <div><span class="dot dot-blue"></span>Faturas <strong id="home-total-faturas">0</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="home-card-v2 home-card-wide">
+                <div class="home-card-title-row">
+                    <div>
+                        <h3>Últimas Faturas</h3>
+                        <p>Últimos lançamentos registados no sistema.</p>
+                    </div>
+                    <button type="button" class="home-link-btn" onclick="window.showSection && window.showSection('consulta-section')">Ver todas</button>
+                </div>
+                <div id="home-ultimas-faturas" class="home-table-area">
+                    <div class="home-loading">A carregar últimas faturas...</div>
+                </div>
+            </div>
+
+            <div class="home-card-v2 home-card-wide">
+                <div class="home-card-title-row">
+                    <div>
+                        <h3>Ações Rápidas</h3>
+                        <p>Acesse as rotinas principais.</p>
+                    </div>
+                </div>
+                <div class="home-actions-v2 home-actions-v2-trio">
+                    <button type="button" onclick="window.showSection && window.showSection('lancamentos-section')"><span>📄</span>Lançamentos de Fatura</button>
+                    <button type="button" onclick="window.showSection && window.showSection('baixa-faturas-section')"><span>✅</span>Baixa de Fatura</button>
+                    <button type="button" onclick="window.showSection && window.showSection('relatorio-caixa-section')"><span>💶</span>Folha de Caixa</button>
+                </div>
+            </div>
+
+            <div class="home-card-v2">
+                <div class="home-card-title-row">
+                    <div>
+                        <h3>Notificações</h3>
+                        <p>Vencimentos, revisão, seguro e inspeção.</p>
+                    </div>
+                </div>
+                <div class="home-notifications-v2">
+                    {% if faturas_vencidas %}
+                        {% for alerta in faturas_vencidas|slice:":4" %}
+                        <div class="home-notification danger">
+                            <strong>Fatura {{ alerta.fatura }} vencida</strong>
+                            <span>{{ alerta.fornecedor }} · {{ alerta.dias_atraso }} dias</span>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% if alertas_faturas %}
+                        {% for alerta in alertas_faturas|slice:":4" %}
+                        <div class="home-notification warning">
+                            <strong>Fatura {{ alerta.fatura }} a vencer</strong>
+                            <span>{{ alerta.fornecedor }} · {{ alerta.dias }} dias</span>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% if dashboard_revisao %}
+                        {% for item in dashboard_revisao|slice:":3" %}
+                        <div class="home-notification info">
+                            <strong>Revisão {{ item.matricula }}</strong>
+                            <span>Faltam {{ item.km_para_revisao }} km para revisão</span>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% if not faturas_vencidas and not alertas_faturas and not dashboard_revisao %}
+                        <div class="home-empty-v2">Sem notificações no momento.</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="home-card-v2 home-card-full">
+                <div class="home-card-title-row">
+                    <div>
+                        <h3>Frota</h3>
+                        <p>Seguro, inspeção e dias restantes por matrícula.</p>
+                    </div>
+                    <button type="button" class="home-link-btn" onclick="window.showSection && window.showSection('frota-section')">Ver frota</button>
+                </div>
+                {% if alertas_frota %}
+                <div class="home-fleet-grid-v2">
+                    {% for alerta in alertas_frota %}
+                    <div class="home-fleet-card-v2">
+                        <div class="fleet-plate-v2">{{ alerta.matricula }}</div>
+                        <div class="fleet-line-v2"><span>Seguro</span><strong>{{ alerta.seguro|default:"-" }}</strong></div>
+                        <div class="fleet-days-v2 {% if alerta.css_seguro == 'danger' %}danger{% endif %}">
+                            <span>Faltam</span><strong>{% if alerta.dias_seguro != None %}{{ alerta.dias_seguro }} dias{% else %}-{% endif %}</strong>
+                        </div>
+                        <div class="fleet-line-v2"><span>Inspeção</span><strong>{{ alerta.inspecao|default:"-" }}</strong></div>
+                        <div class="fleet-days-v2 {% if alerta.css_inspecao == 'danger' %}danger{% endif %}">
+                            <span>Faltam</span><strong>{% if alerta.dias_inspecao != None %}{{ alerta.dias_inspecao }} dias{% else %}-{% endif %}</strong>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                    <div class="home-empty-v2">Nenhum registo de frota encontrado.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function(){
+        function money(v){
+            const n = Number(v || 0);
+            return n.toLocaleString('pt-PT', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
+        }
+        function esc(v){
+            return String(v == null ? '' : v).replace(/[&<>"']/g, function(c){
+                return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+            });
+        }
+        function getMes(data){
+            if(!data) return '';
+            const s = String(data);
+            const m = s.match(/^(\d{2})\/(\d{2})\/(\d{4})/);
+            if(m) return m[2];
+            const m2 = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+            if(m2) return m2[2];
+            return '';
+        }
+        function renderTabela(linhas){
+            const alvo = document.getElementById('home-ultimas-faturas');
+            if(!alvo) return;
+            if(!linhas.length){
+                alvo.innerHTML = '<div class="home-empty-v2">Ainda não existem faturas registadas.</div>';
+                return;
+            }
+            alvo.innerHTML = '<div class="table-responsive"><table class="data-table home-table-v2"><thead><tr><th>ID</th><th>Nº Fatura</th><th>Fornecedor</th><th>Data Emissão</th><th>Valor Total</th></tr></thead><tbody>' +
+                linhas.map(function(l){
+                    return '<tr>' +
+                        '<td>'+esc(l.id || l.lancamento_id || '')+'</td>' +
+                        '<td>'+esc(l.numero_fatura || '')+'</td>' +
+                        '<td>'+esc(l.fornecedor || '')+'</td>' +
+                        '<td>'+esc(l.data_emissao || '')+'</td>' +
+                        '<td>'+money(l.valor_fatura || l.valor_total || 0)+'</td>' + 
+                    '</tr>';
+                }).join('') + '</tbody></table></div>';
+        }
+        function calcularResumo(linhas){
+            const mes = document.getElementById('home-resumo-mes')?.value || '';
+            const filtradas = mes ? linhas.filter(function(l){ return getMes(l.data_emissao) === mes; }) : linhas;
+            let dinheiro = 0, cartao = 0, nota = 0;
+            filtradas.forEach(function(l){
+                dinheiro += Number(l.dinheiro || 0);
+                cartao += Number(l.cartao || 0);
+                nota += Number(l.nota_credito || 0);
+            });
+            const total = dinheiro + cartao - nota;
+            const set = function(id, value){ const el = document.getElementById(id); if(el) el.textContent = value; };
+            set('home-total-dinheiro', money(dinheiro));
+            set('home-total-cartao', money(cartao));
+            set('home-total-nota', money(nota));
+            set('home-total-geral', money(total));
+            set('home-total-faturas', String(filtradas.length));
+        }
+        function init(){
+            fetch('/consulta/', {credentials:'same-origin'})
+                .then(function(r){ return r.ok ? r.json() : {linhas:[]}; })
+                .then(function(data){
+                    const linhas = (data.linhas || []).slice();
+                    linhas.sort(function(a,b){ return Number(b.id || b.lancamento_id || 0) - Number(a.id || a.lancamento_id || 0); });
+                    renderTabela(linhas.slice(0,6));
+                    calcularResumo(linhas);
+                    const sel = document.getElementById('home-resumo-mes');
+                    if(sel) sel.addEventListener('change', function(){ calcularResumo(linhas); });
+                })
+                .catch(function(){
+                    const alvo = document.getElementById('home-ultimas-faturas');
+                    if(alvo) alvo.innerHTML = '<div class="home-empty-v2">Não foi possível carregar as últimas faturas.</div>';
+                });
+        }
+        if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+        else init();
+    })();
+    </script>
+</section>
+
+                <section id="cliente-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Clientes</h3>
+                    <div class="card-actions">
+                        <button type="button" class="btn btn-primary" onclick="salvarCliente()">Guardar</button>
+                        <button type="button" class="btn btn-outline" onclick="limparCliente()">Limpar</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid two-columns">
+                        <div class="form-group">
+                            <label for="cliente-id">ID</label>
+                            <input type="text" id="cliente-id" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="cliente-nif">NIF</label>
+                            <input type="text" id="cliente-nif" placeholder="Contribuinte">
+                        </div>
+                        <div class="form-group field-span-2">
+                            <label for="cliente-nome">Nome</label>
+                            <input type="text" id="cliente-nome" placeholder="Nome do cliente">
+                        </div>
+                        <div class="form-group">
+                            <label for="cliente-email">Email</label>
+                            <input type="email" id="cliente-email" placeholder="email@cliente.pt">
+                        </div>
+                        <div class="form-group">
+                            <label for="cliente-contato">Contacto</label>
+                            <input type="text" id="cliente-contato" placeholder="Telefone">
+                        </div>
+                        <div class="form-group field-span-2">
+                            <label for="cliente-morada">Morada</label>
+                            <input type="text" id="cliente-morada" placeholder="Morada">
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="margin-top:16px">
+                        <table class="data-table">
+                            <thead><tr><th>ID</th><th>NIF</th><th>Nome</th><th>Email</th><th>Contacto</th><th>Ações</th></tr></thead>
+                            <tbody id="clientes-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<section id="fornecedor-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Fornecedor</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="salvarFornecedor()">Salvar</button>
+                        <button type="button" class="btn btn-secondary" onclick="limparFornecedor()">Cancelar</button>
+                        <button type="button" class="btn btn-outline" onclick="carregarFornecedores()">Consultar Lançamentos</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" id="fornecedor-id">
+                    <div class="form-grid three">
+                        <div class="form-group">
+                            <label>Contribuinte</label>
+                            <input type="text" id="fornecedor-nif">
+                        </div>
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input type="text" id="fornecedor-nome">
+                        </div>
+                        <div class="form-group">
+                            <label>IBAN</label>
+                            <input type="text" id="fornecedor-iban">
+                        </div>
+                        <div class="form-group">
+                            <label>Contato</label>
+                            <input type="text" id="fornecedor-contato">
+                        </div>
+                        <div class="form-group">
+                            <label>Responsável</label>
+                            <input type="text" id="fornecedor-responsavel">
+                        </div>
+                        <div class="form-group">
+                            <label>E-mail</label>
+                            <input type="email" id="fornecedor-email">
+                        </div>
+                        <div class="form-group">
+                            <label>Morada</label>
+                            <input type="text" id="fornecedor-morada">
+                        </div>
+                        <div class="form-group">
+                            <label>Conselho</label>
+                            <input type="text" id="fornecedor-conselho">
+                        </div>
+                        <div class="form-group">
+                            <label>Caixa Postal</label>
+                            <input type="text" id="fornecedor-caixa-postal">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h3>Listagem de Fornecedores</h3></div>
+                <div class="card-body">
+                    <div id="fornecedor-lista"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="funcionario-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Funcionário</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="salvarFuncionario()">Salvar</button>
+                        <button type="button" class="btn btn-secondary" onclick="limparFuncionario()">Cancelar</button>
+                        <button type="button" class="btn btn-outline" onclick="carregarFuncionarios()">Consultar Lançamentos</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" id="funcionario-id">
+                    <div class="form-grid three">
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input type="text" id="funcionario-nome">
+                        </div>
+                        <div class="form-group">
+                            <label>Telefone</label>
+                            <input type="text" id="funcionario-contato">
+                        </div>
+                        <div class="form-group">
+                            <label>E-mail</label>
+                            <input type="email" id="funcionario-email">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h3>Listagem de Funcionários</h3></div>
+                <div class="card-body">
+                    <div id="funcionario-lista"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="frota-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Frota</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="salvarFrota()">Salvar</button>
+                        <button type="button" class="btn btn-secondary" onclick="limparFrota()">Cancelar</button>
+                        <button type="button" class="btn btn-outline" onclick="carregarFrota()">Consultar Lançamentos</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" id="frota-id">
+                    <div class="form-grid four">
+                        <div class="form-group">
+                            <label>Matrícula</label>
+                            <input type="text" id="frota-matricula">
+                        </div>
+                        <div class="form-group">
+                            <label>Marca</label>
+                            <input type="text" id="frota-marca">
+                        </div>
+                        <div class="form-group">
+                            <label>Modelo</label>
+                            <input type="text" id="frota-modelo">
+                        </div>
+                        <div class="form-group">
+                            <label>Seguro</label>
+                            <input type="date" id="frota-seguro">
+                        </div>
+                        <div class="form-group">
+                            <label>Seguradora</label>
+                            <input type="text" id="frota-seguradora">
+                        </div>
+                        <div class="form-group">
+                            <label>Inspeção</label>
+                            <input type="date" id="frota-inspecao">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h3>Listagem da Frota</h3></div>
+                <div class="card-body">
+                    <div id="frota-lista"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="combustivel-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Combustível</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="salvarCombustivel()">Salvar</button>
+                        <button type="button" class="btn btn-secondary" onclick="limparCombustivel()">Cancelar</button>
+                        <button type="button" class="btn btn-outline" onclick="carregarCombustiveis()">Consultar Lançamentos</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" id="combustivel-id">
+                    <div class="form-grid two">
+                        <div class="form-group">
+                            <label>Nome do combustível</label>
+                            <input type="text" id="combustivel-nome" autocomplete="off" placeholder="Ex.: 95 Gasolina, 98 Gasolina Aditivada, B7 Gasóleo">
+                            <small class="field-hint">Os botões da rotina de Lançamentos são criados automaticamente a partir deste cadastro.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Manutenção</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="salvarBotaoManutencao()">Salvar</button>
+                        <button type="button" class="btn btn-secondary" onclick="limparTipoManutencao()">Cancelar</button>
+                        <button type="button" class="btn btn-success" onclick="exportarRelatorio('rotina_manutencao','excel')">Exportar Excel</button>
+                        
+                        <button type="button" class="btn btn-secondary" onclick="imprimirRelatorio('rotina_manutencao')">Imprimir</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" id="manutencao-botao-key">
+                    <div class="form-grid two">
+                        <div class="form-group">
+                            <label>Tipo de manutenção</label>
+                            <input type="text" id="manutencao-botao-nome" value="Manutenção" autocomplete="off" placeholder="Ex.: Manutenção, Troca de pneu, Revisão">
+                            <small class="field-hint">Cada tipo salvo aparece como botão preto na rotina de Lançamentos de Fatura.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h3>Listagem de Combustíveis</h3></div>
+                <div class="card-body">
+                    <div id="combustivel-lista"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h3>Listagem de Manutenção</h3></div>
+                <div class="card-body">
+                    <div id="manutencao-lista"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="empresa-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Empresa</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="salvarEmpresa()">Salvar</button>
+                        <button type="button" class="btn btn-secondary" onclick="limparEmpresa()">Cancelar</button>
+                        <button type="button" class="btn btn-outline" onclick="carregarEmpresas()">Consultar Lançamentos</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" id="empresa-id">
+                    <div class="form-grid four">
+                        <div class="form-group">
+                            <label>Contribuinte</label>
+                            <input type="text" id="empresa-nif">
+                        </div>
+                        <div class="form-group">
+                            <label>Nome da Empresa</label>
+                            <input type="text" id="empresa-nome">
+                        </div>
+                        <div class="form-group">
+                            <label>Morada</label>
+                            <input type="text" id="empresa-morada">
+                        </div>
+                        <div class="form-group">
+                            <label>Caixa Postal</label>
+                            <input type="text" id="empresa-caixa-postal">
+                        </div>
+                        <div class="form-group">
+                            <label>Cidade</label>
+                            <input type="text" id="empresa-cidade">
+                        </div>
+                        <div class="form-group">
+                            <label>Telefone</label>
+                            <input type="text" id="empresa-contato">
+                        </div>
+                        <div class="form-group">
+                            <label>E-mail</label>
+                            <input type="email" id="empresa-email">
+                        </div>
+                        <div class="form-group">
+                            <label>Logo (PNG)</label>
+                            <input type="file" id="empresa-logo" accept="image/png,image/*">
+                        </div>
+                        <div class="form-group">
+                            <label>Pré-visualização</label>
+                            <div class="logo-upload-box">
+                                <img id="empresa-logo-preview" class="logo-preview hidden" alt="Pré-visualização da logo" style="height:65px;">
+                                <span id="empresa-logo-placeholder" class="logo-placeholder">Sem logo carregada</span>
+                            </div>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="empresa-remover-logo">
+                                Remover logo atual
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h3>Listagem de Empresas</h3></div>
+                <div class="card-body">
+                    <div id="empresa-lista"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="usuario-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Utilizadores e Permissões</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="salvarUsuario()">Salvar</button>
+                        <button type="button" class="btn btn-secondary" onclick="limparUsuario()">Cancelar</button>
+                        <button type="button" class="btn btn-outline" onclick="abrirModalPermissoes()">Marcar rotinas</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" id="usuario-id">
+                    <div class="form-grid three">
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input type="text" id="usuario-nome">
+                        </div>
+                        <div class="form-group">
+                            <label>Contato</label>
+                            <input type="text" id="usuario-contato">
+                        </div>
+                        <div class="form-group">
+                            <label>E-mail recuperação</label>
+                            <input type="email" id="usuario-email-recuperacao">
+                        </div>
+                        <div class="form-group">
+                            <label>Empresa</label>
+                            <select id="usuario-empresa"></select>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label>&nbsp;</label>
+                            <label class="checkbox-inline"><input type="checkbox" id="usuario-administrador-geral"> Acesso a todas as empresas</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Usuário</label>
+                            <input type="text" id="usuario-username" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label>Senha</label>
+                            <input type="password" id="usuario-password">
+                        </div>
+                    </div>
+                    <div class="form-note" style="margin-top:12px;color:#60748c;">Use o botão <strong>Marcar rotinas</strong> para definir o acesso de cada utilizador às rotinas do sistema. O utilizador <strong>maia</strong> permanece com acesso total a todas as rotinas e empresas.</div><div id="usuario-permissoes-resumo" class="form-note" style="margin-top:6px;color:#163b69;font-weight:700;">Sem rotinas configuradas.</div>
+                    <div id="usuario-permissoes-detalhe" class="form-note" style="margin-top:8px;color:#51657f;line-height:1.5;">Nenhuma rotina marcada.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h3>Listagem de Usuários</h3></div>
+                <div class="card-body">
+                    <div id="usuario-lista"></div>
+                </div>
+            </div>
+        </section>
+        <section id="lancamentos-section" class="content-section">
+            <div class="card launch-card pos-image2-wrap elion-launch-card">
+                <div class="pos-lanc-title">
+                    <div class="pos-title-left">
+                        <img src="{% if logo_paineis_url %}{{ logo_paineis_url }}{% else %}{% static 'Elion/img/logo_barra_elion.png' %}{% endif %}" alt="Elion Gestão" class="section-logo elion-launch-logo elion-launch-logo-wide" style="height:65px;">
+                    </div>
+                    <div class="pos-title-actions">
+                        {% if empresa_ativa and empresa_ativa.logo %}<img src="{{ empresa_ativa.logo.url }}" alt="Logo {{ empresa_ativa.nome }}" class="company-routine-logo" style="height:65px;">{% endif %}
+                        <button type="button" class="btn btn-primary" onclick="salvarLancamento()">Salvar</button>
+                        <button type="button" class="btn btn-secondary" onclick="limparLancamento()">Cancelar</button>
+                        <button type="button" class="btn btn-outline" onclick="showSection('consulta-section')">Consultar Lançamentos</button>
+                        
+                    </div>
+                </div>
+                <div class="card-body pos-launch-body">
+                    <input type="hidden" id="lancamento-id">
+                    <input type="hidden" id="lancamento-id-visual">
+                    <input type="hidden" id="lancamento-parcelas" value="1">
+                    <input type="hidden" id="lancamento-valor-parcela" value="0">
+                    <input type="hidden" id="lancamento-status-pagamento">
+                    <input type="hidden" id="lancamento-saldo-aberto" value="0">
+                    <div class="pos-image2-grid">
+                        <div class="pos-image2-left">
+                            <div class="pos-image2-block">
+                                <div class="card inner-card lancamento-block elion-info-card">
+                                    <div class="card-header"><h3>Fornecedor / Contribuinte</h3></div>
+                                    <div class="card-body">
+                                        <div class="pos-row-line autocomplete-wrap">
+                                            <div class="inline-input-action">
+                                                <input type="text" id="lancamento-fornecedor-busca" placeholder="Pesquisar fornecedor (nome ou NIF)" tabindex="1">
+                                                <button type="button" class="btn btn-outline" onclick="abrirModalFornecedor()">Inserir</button>
+                                            </div>
+                                            <input type="hidden" id="lancamento-fornecedor-id">
+                                            <div id="fornecedor-sugestoes" class="autocomplete-list"></div>
+                                        </div>
+                                        <div class="pos-row-two">
+                                            <label>Núm. Fatura</label>
+                                            <input type="text" id="lancamento-numero-fatura" tabindex="2">
+                                        </div>
+                                        <div class="pos-row-two">
+                                            <label>Data Emissão</label>
+                                            <input type="date" id="lancamento-data-emissao" tabindex="3">
+                                        </div>
+                                        <div class="pos-row-two">
+                                            <label>Data a Vencer</label>
+                                            <input type="date" id="lancamento-data-vencimento" tabindex="4">
+                                        </div>
+                                        <div class="pos-pay-row pos-pay-row-strong">
+                                            <div class="pos-pay-col">
+                                                <div class="pos-pay-label dinheiro">Dinheiro</div>
+                                                <input type="number" step="0.01" id="lancamento-dinheiro" class="pos-money-input" tabindex="5" placeholder="0,00">
+                                            </div>
+                                            <div class="pos-pay-col">
+                                                <div class="pos-pay-label cardao">Cartão</div>
+                                                <input type="number" step="0.01" id="lancamento-cartao" class="pos-money-input" tabindex="6" placeholder="0,00">
+                                            </div>
+                                            <div class="pos-pay-col">
+                                                <div class="pos-pay-label" style="background:#7f1d1d;color:#fff;">Nota de Crédito</div>
+                                                <input type="number" step="0.01" id="lancamento-nota-credito" class="pos-money-input" tabindex="7" placeholder="0,00">
+                                            </div>
+                                        </div>
+                                        <div class="pos-row-two pos-total-highlight">
+                                            <label>Valor Total</label>
+                                            <input type="text" id="lancamento-total" class="pos-total-input" tabindex="8" readonly inputmode="decimal">
+                                            <input type="hidden" id="lancamento-valor-fatura" value="0">
+                                        </div>
+                                        <div class="lancamento-botoes-placeholder-info">
+                                            <div class="field-hint">Use os botões coloridos de Combustíveis e os botões pretos de Manutenção para preencher e adicionar os itens da fatura.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card inner-card lancamento-block elion-actions-card caixa-fuel-card" style="display:none!important;">
+                                    <div class="card-body"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pos-image2-right">
+                            <div class="pos-action-bar pos-fuel-selector-bar lancamento-botoes-topo lancamento-botoes-verticais">
+                                <div class="pos-buttons-grid fuel-button-grid fuel-button-grid-small elion-fuel-stack" id="fuel-button-grid"></div>
+                                <div class="lancamento-botoes-secundarios">
+                                    <div id="revisao-button-slot" class="manutencao-button-grid lancamento-botao-linha"></div>
+                                    <div id="manutencao-button-slot" class="manutencao-button-grid lancamento-botao-linha"></div>
+                                </div>
+                            </div>
+                            <div class="pos-top-table lancamento-grade-topo">
+                                <table>
+                                    <thead><tr><th>#</th><th>Descrição</th><th>Matrícula</th><th>KM Inicial</th><th>KM Final</th><th>KM Total</th><th>Litros</th><th>Valor/Litro</th><th>Valor</th><th></th></tr></thead>
+                                    <tbody id="itens-lancamento-preview"><tr><td>1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>€ 0,00</td><td></td></tr></tbody>
+                                </table>
+                            </div>
+                            <div class="pos-detail-shell">
+                                
+                                <div id="combustivel-item-panel" class="elion-detail-card hidden no-card-shell">
+                                    <input type="hidden" id="item-combustivel-id">
+                                    <input type="hidden" id="item-combustivel-combustivel-id">
+                                    <div class="pos-detail-card-head"><h4>Combustível</h4><button type="button" class="mini-close" onclick="ativarPainelLancamento('combustivel')" aria-label="Fechar">×</button></div>
+                                    <div class="pos-desc-row">
+                                        <div class="descricao-box">
+                                            <label>Descrição</label>
+                                            <input type="text" id="combustivel-selecionado-label" readonly value="95 Gasolina">
+                                        </div>
+                                    </div>
+                                    <div class="pos-detail-grid grid-6">
+                                        <div class="span-4 autocomplete-wrap">
+                                            <label>Matrícula</label>
+                                            <input type="text" id="item-combustivel-matricula" placeholder="Matrícula" autocomplete="off" tabindex="8">
+                                            <input type="hidden" id="item-frota-id">
+                                            <div id="combustivel-frota-sugestoes" class="autocomplete-list"></div>
+                                        </div>
+                                        <div><label>KM Inicial</label><input type="number" id="item-km-inicio" tabindex="9" oninput="calcularKmTotalItem()"></div>
+                                        <div><label>KM Final</label><input type="number" id="item-km-final" tabindex="10" oninput="calcularKmTotalItem()"></div>
+                                        <div><label>KM Total</label><input type="number" id="item-km-total" readonly></div>
+                                        <div><label>Litros</label><input type="number" step="0.01" id="item-litro" tabindex="11"></div>
+                                        <div><label>Valor/Litro</label><input type="number" step="0.001" id="item-valor-litro" tabindex="12"></div>
+                                        <div><label>Valor</label><input type="number" step="0.01" id="item-valor-total" tabindex="13"></div>
+                                        <div class="span-6"><label>Observação</label><textarea id="item-combustivel-observacao" tabindex="14" placeholder="Observação do abastecimento"></textarea></div>
+                                    </div>
+                                    <div class="panel-add-action"><button type="button" class="btn btn-primary" onclick="adicionarItemCombustivelNaGrade()">Adicionar</button></div>
+<div class="panel-add-action"><button type="button" class="btn btn-primary" onclick="salvarLancamento()">Salvar</button><button type="button" class="btn btn-secondary" onclick="limparLancamento()">Cancelar</button><button type="button" class="btn btn-outline" onclick="showSection('consulta-section')">Consultar Lançamentos</button></div>
+                                </div>
+                                <div id="manutencao-item-panel" class="elion-detail-card hidden no-card-shell">
+                                    <input type="hidden" id="item-manutencao-id">
+                                    <div class="pos-detail-card-head"><h4>Manutenção</h4><button type="button" class="mini-close" onclick="ativarPainelLancamento('manutencao')" aria-label="Fechar">×</button></div>
+                                    <div class="pos-desc-row">
+                                        <div class="descricao-box">
+                                            <label>Descrição</label>
+                                            <input type="text" id="manutencao-selecionado-label" readonly value="Manutenção">
+                                        </div>
+                                    </div>
+                                    <div class="pos-detail-grid grid-6">
+                                        <div class="span-4 autocomplete-wrap">
+                                            <label>Matrícula</label>
+                                            <input type="text" id="item-manutencao-matricula" autocomplete="off" placeholder="Matrícula" tabindex="14">
+                                            <input type="hidden" id="item-manutencao-frota-id">
+                                            <div id="manutencao-frota-sugestoes" class="autocomplete-list"></div>
+                                        </div>
+                                        <div><label>KM Inicial</label><input type="number" id="item-manutencao-km-inicio" tabindex="15" oninput="calcularKmTotalManutencao()"></div>
+                                        <div><label>KM Final</label><input type="number" id="item-manutencao-km-final" tabindex="16" oninput="calcularKmTotalManutencao()"></div>
+                                        <div><label>KM Total</label><input type="number" id="item-manutencao-km-total" readonly></div>
+                                        <div><label>Litros</label><input type="number" step="0.01" id="item-manutencao-litro" tabindex="17"></div>
+                                        <div><label>Valor/Litro</label><input type="number" step="0.001" id="item-manutencao-valor-litro" tabindex="18"></div>
+                                        <div><label>Valor</label><input type="number" step="0.01" id="item-manutencao-valor" tabindex="19"></div>
+                                        <div class="span-6"><label>Observação</label><textarea id="item-manutencao-observacao" tabindex="20" placeholder="Descrição do serviço executado"></textarea></div>
+                                    </div>
+                                    <div class="panel-add-action"><button type="button" class="btn btn-primary" onclick="adicionarItemManutencaoNaGrade()">Adicionar</button></div>
+                                </div>
+                                
+                                <div id="revisao-item-panel" class="elion-detail-card hidden no-card-shell">
+                                    <input type="hidden" id="item-revisao-id">
+                                    <div class="pos-detail-card-head"><h4>Revisão</h4><button type="button" class="mini-close" onclick="ativarPainelLancamento('revisao')" aria-label="Fechar">×</button></div>
+                                    <div class="pos-detail-grid grid-6">
+                                        <div class="span-2 autocomplete-wrap"><label>Matrícula</label><input type="text" id="item-revisao-matricula" autocomplete="off" placeholder="Matrícula"><input type="hidden" id="item-revisao-frota-id"><div id="revisao-frota-sugestoes" class="autocomplete-list"></div></div>
+                                        <div><label>Marca</label><input type="text" id="item-revisao-marca" readonly></div>
+                                        <div><label>Modelo</label><input type="text" id="item-revisao-modelo" readonly></div>
+                                        <div><label>Data Últ. Revisão</label><input type="date" id="item-revisao-data"></div>
+                                        <div><label>KM Inicial</label><input type="number" id="item-revisao-km-inicio" oninput="calcularKmTotalRevisao()"></div>
+                                        <div><label>KM Final</label><input type="number" id="item-revisao-km-final" oninput="calcularKmTotalRevisao()"></div>
+                                        <div><label>KM Total</label><input type="number" id="item-revisao-km-total" readonly></div>
+                                        <div><label>KM Rodados</label><input type="number" id="item-revisao-km-rodados" readonly></div>
+                                        <div><label>KMs de Previsão</label><input type="number" id="item-revisao-kms-previsao" oninput="calcularKmParaRevisao()"></div>
+                                        <div><label>KM para revisão</label><input type="number" id="item-revisao-km-para-revisao" readonly></div>
+                                        <div class="autocomplete-wrap"><label>Funcionário</label><input type="text" id="item-revisao-funcionario" autocomplete="off"><input type="hidden" id="item-revisao-funcionario-id"><div id="revisao-funcionario-sugestoes" class="autocomplete-list"></div></div>
+                                        <div class="span-6"><label>Observação</label><textarea id="item-revisao-observacao"></textarea></div>
+                                    </div>
+                                    <div class="panel-add-action"><button type="button" class="btn btn-primary" onclick="adicionarItemRevisaoNaGrade()">Adicionar</button></div>
+                                </div>
+                            </div>
+                            <div style="display:none"><div id="itens-combustivel-grid"></div><div id="itens-manutencao-grid"></div><div id="itens-revisao-grid"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="revisao-frota-section" class="content-section">
+            <div class="card launch-card pos-image2-wrap elion-launch-card" style="margin-bottom:18px;">
+                <div class="pos-lanc-title">
+                    <div class="pos-title-left">
+                        <img src="{% if logo_paineis_url %}{{ logo_paineis_url }}{% else %}{% static 'Elion/img/logo_oficial_elion.png' %}{% endif %}" alt="{{ sistema_nome|default:'Elion Gestão' }}" class="section-logo elion-launch-logo" style="height:65px;">
+                        <div class="elion-title-stack">
+                            <h3>{{ sistema_nome|default:'Elion Gestão' }}</h3>
+                            <div class="title-sub">Revisão de Frota</div>
+                        </div>
+                    </div>
+                    <div class="pos-title-actions">
+                        {% if empresa_ativa and empresa_ativa.logo %}<img src="{{ empresa_ativa.logo.url }}" alt="Logo {{ empresa_ativa.nome }}" class="company-routine-logo" style="height:65px;">{% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Revisão de Frota</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="salvarRevisaoFrota()">Salvar</button>
+                        <button type="button" class="btn btn-secondary" onclick="limparRevisaoFrota()">Cancelar</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" id="revisao-id">
+                    <input type="hidden" id="revisao-frota-id">
+                    <input type="hidden" id="revisao-funcionario-id">
+                    <div class="form-grid four">
+                        <div class="form-group autocomplete-wrap"><label>Matrícula</label><input type="text" id="revisao-matricula" autocomplete="off"><div id="revisao-frota-sugestoes-main" class="autocomplete-list"></div></div>
+                        <div class="form-group"><label>Marca</label><input type="text" id="revisao-marca" readonly></div>
+                        <div class="form-group"><label>Modelo</label><input type="text" id="revisao-modelo" readonly></div>
+                        <div class="form-group"><label>Data da Última Revisão</label><input type="date" id="revisao-data-ultima"></div>
+                        <div class="form-group"><label>KMs da Última Revisão</label><input type="number" id="revisao-km-ultima"></div>
+                        <div class="form-group"><label>KMs Rodados</label><input type="number" id="revisao-km-rodados"></div>
+                        <div class="form-group"><label>KMs de Previsão</label><input type="number" id="revisao-kms-previsao" oninput="calcularRevisaoFrotaFormulario()"></div>
+                        <div class="form-group"><label>KM para Fazer a Revisão</label><input type="number" id="revisao-km-para" readonly></div>
+                        <div class="form-group autocomplete-wrap"><label>Funcionário</label><input type="text" id="revisao-funcionario" autocomplete="off"><div id="revisao-funcionario-sugestoes-main" class="autocomplete-list"></div></div>
+                        <div class="form-group field-span-3"><label>Observação</label><input type="text" id="revisao-observacao"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Listagem de Revisão de Frota</h3>
+                    <div class="actions">
+                        <input type="text" id="revisao-filtro-matricula" placeholder="Filtrar por matrícula" style="max-width:180px">
+                        <input type="date" id="revisao-filtro-data-inicio">
+                        <input type="date" id="revisao-filtro-data-fim">
+                        <button type="button" class="btn btn-outline" onclick="carregarRevisaoFrota()">Pesquisar</button>
+                        <button type="button" class="btn btn-success" onclick="exportarRelatorio('revisao','excel')">Exportar Excel</button>
+                        
+                        <button type="button" class="btn btn-secondary" onclick="imprimirRelatorio('revisao')">Imprimir</button>
+                    </div>
+                </div>
+                <div class="card-body"><div id="revisao-frota-lista"></div></div>
+            </div>
+        </section>
+
+<section id="consulta-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Consulta de Lançamentos</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="carregarConsulta()">Pesquisar</button>
+                        <button type="button" class="btn btn-secondary" onclick="showSection('lancamentos-section')">Voltar para Lançamentos</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid four">
+                        <div class="form-group">
+                            <label>Data de emissão de</label>
+                            <input type="date" id="consulta-data-inicio">
+                        </div>
+                        <div class="form-group">
+                            <label>Data de emissão até</label>
+                            <input type="date" id="consulta-data-fim">
+                        </div>
+                        <div class="form-group autocomplete-wrap">
+                            <label>Fornecedor / NIF</label>
+                            <input type="text" id="consulta-fornecedor" autocomplete="off">
+                            <div id="consulta-fornecedor-sugestoes" class="autocomplete-list"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Fatura</label>
+                            <input type="text" id="consulta-fatura" autocomplete="off">
+                            <div id="consulta-fatura-sugestoes" class="autocomplete-list"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Ordenar por</label>
+                            <select id="consulta-ordem">
+                                <option value="data">Data de Emissão</option>
+                                <option value="id">ID</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h3>Listagem</h3></div>
+                <div class="card-body">
+                    <div id="consulta-lista"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="relatorio-financeiro-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Contas a Pagar</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="carregarRelatorioFinanceiro()">Pesquisar</button>
+                        <button type="button" class="btn btn-success" onclick="exportarRelatorio('financeiro','excel')">Exportar Excel</button>
+                        <button type="button" class="btn btn-secondary" onclick="imprimirRelatorio('financeiro')">Imprimir</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid four">
+                        <div class="form-group">
+                            <label>Data de</label>
+                            <input type="date" id="rf-data-inicio">
+                        </div>
+                        <div class="form-group">
+                            <label>Data até</label>
+                            <input type="date" id="rf-data-fim">
+                        </div>
+                        <div class="form-group autocomplete-wrap">
+                            <label>Fornecedor / NIF</label>
+                            <input type="text" id="rf-fornecedor" autocomplete="off" placeholder="Digite nome ou NIF">
+                            <div id="rf-fornecedor-sugestoes" class="autocomplete-list"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Fatura</label>
+                            <input type="text" id="rf-fatura" autocomplete="off">
+                            <div id="rf-fatura-sugestoes" class="autocomplete-list"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="rf-status">
+                                <option value="">Todos</option>
+                                <option value="Em aberto">Em aberto</option>
+                                <option value="Parcial">Parcial</option>
+                                <option value="Paga">Paga</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Ordenar por</label>
+                            <select id="rf-periodo-tipo">
+                                <option value="emissao">Data de Emissão</option>
+                                <option value="vencimento">Data de Vencimento</option>
+                                <option value="id">ID</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="relatorio-financeiro-lista"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="relatorio-fornecedor-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Gastos por Fornecedor</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="carregarRelatorioFornecedor()">Pesquisar</button>
+                        <button type="button" class="btn btn-success" onclick="exportarRelatorio('fornecedor','excel')">Exportar Excel</button>
+                        <button type="button" class="btn btn-secondary" onclick="imprimirRelatorio('fornecedor')">Imprimir</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid four">
+                        <div class="form-group">
+                            <label>Data de</label>
+                            <input type="date" id="rfor-data-inicio">
+                        </div>
+                        <div class="form-group">
+                            <label>Data até</label>
+                            <input type="date" id="rfor-data-fim">
+                        </div>
+                        <div class="form-group autocomplete-wrap">
+                            <label>Fornecedor / NIF</label>
+                            <input type="text" id="rfor-fornecedor" autocomplete="off" placeholder="Digite nome ou NIF">
+                            <div id="rfor-fornecedor-sugestoes" class="autocomplete-list"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Fatura</label>
+                            <input type="text" id="rfor-fatura" autocomplete="off" placeholder="Número da fatura">
+                            <div id="rfor-fatura-sugestoes" class="autocomplete-list"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="rfor-status">
+                                <option value="">Todos</option>
+                                <option value="Em aberto">Em aberto</option>
+                                <option value="Parcial">Parcial</option>
+                                <option value="Paga">Paga</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Período por</label>
+                            <select id="rfor-periodo-tipo">
+                                <option value="emissao">Data de Emissão</option>
+                                <option value="id">ID</option>
+                                <option value="vencimento">Data de Vencimento</option>
+                                <option value="pagamento">Data de Pagamento</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="relatorio-fornecedor-lista"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="baixa-faturas-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Baixa de Faturas</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="carregarBaixaFaturas()">Pesquisar</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid four">
+                        <div class="form-group">
+                            <label>Data de</label>
+                            <input type="date" id="rbf-data-inicio">
+                        </div>
+                        <div class="form-group">
+                            <label>Data até</label>
+                            <input type="date" id="rbf-data-fim">
+                        </div>
+                        <div class="form-group autocomplete-wrap">
+                            <label>Fornecedor / NIF</label>
+                            <input type="text" id="rbf-fornecedor" autocomplete="off" placeholder="Digite nome, NIF ou código">
+                            <div id="rbf-fornecedor-sugestoes" class="autocomplete-list"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Fatura</label>
+                            <input type="text" id="rbf-fatura" autocomplete="off" placeholder="Número da fatura">
+                            <div id="rbf-fatura-sugestoes" class="autocomplete-list"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="rbf-status">
+                                <option value="">Todos</option>
+                                <option value="Em aberto">Em aberto</option>
+                                <option value="Parcial">Parcial</option>
+                                <option value="Paga">Paga</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Período por</label>
+                            <select id="rbf-periodo-tipo">
+                                <option value="emissao">Data de Emissão</option>
+                                <option value="id">ID</option>
+                                <option value="vencimento">Vencimento</option>
+                                <option value="pagamento">Pagamento</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="baixa-faturas-lista"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="relatorio-faturas-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Relatório de Baixa de Faturas</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="carregarRelatorioFaturas()">Pesquisar</button>
+                        <button type="button" class="btn btn-success" onclick="exportarRelatorio('faturas','excel')">Exportar Excel</button>
+                        <button type="button" class="btn btn-secondary" onclick="imprimirRelatorio('faturas')">Imprimir</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid four">
+                        <div class="form-group">
+                            <label>Data de</label>
+                            <input type="date" id="rfat-data-inicio">
+                        </div>
+                        <div class="form-group">
+                            <label>Data até</label>
+                            <input type="date" id="rfat-data-fim">
+                        </div>
+                        <div class="form-group autocomplete-wrap">
+                            <label>Fornecedor / NIF</label>
+                            <input type="text" id="rfat-fornecedor" autocomplete="off" placeholder="Digite nome, NIF ou código">
+                            <div id="rfat-fornecedor-sugestoes" class="autocomplete-list"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Fatura</label>
+                            <input type="text" id="rfat-fatura" autocomplete="off" placeholder="Número da fatura">
+                            <div id="rfat-fatura-sugestoes" class="autocomplete-list"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="rfat-status">
+                                <option value="">Todos</option>
+                                <option value="Em aberto">Em aberto</option>
+                                <option value="Parcial">Parcial</option>
+                                <option value="Paga">Paga</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Ordenar por</label>
+                            <select id="rfat-periodo-tipo">
+                                <option value="emissao">Data de Emissão</option>
+                                <option value="id">ID</option>
+                                <option value="vencimento">Data de Vencimento</option>
+                                <option value="pagamento">Data de Pagamento</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="relatorio-faturas-lista"></div>
+                </div>
+            </div>
+        </section>
+
+<section id="relatorio-frota-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Relatório de Frota</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="carregarRelatorioFrota()">Pesquisar</button>
+                        <button type="button" class="btn btn-success" onclick="exportarRelatorio('frota','excel')">Exportar Excel</button>
+                        <button type="button" class="btn btn-secondary" onclick="imprimirRelatorio('frota')">Imprimir</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid three">
+                        <div class="form-group">
+                            <label>Data de</label>
+                            <input type="date" id="rfr-data-inicio">
+                        </div>
+                        <div class="form-group">
+                            <label>Data até</label>
+                            <input type="date" id="rfr-data-fim">
+                        </div>
+                        <div class="form-group">
+                            <label>Matrícula</label>
+                            <input type="text" id="rfr-matricula">
+                        </div>
+                    </div>
+                    <div id="relatorio-frota-lista"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="relatorio-manutencao-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Relatório de Manutenção</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="carregarRelatorioManutencao()">Pesquisar</button>
+                        <button type="button" class="btn btn-success" onclick="exportarRelatorio('manutencao','excel')">Exportar Excel</button>
+                        <button type="button" class="btn btn-secondary" onclick="imprimirRelatorio('manutencao')">Imprimir</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid three">
+                        <div class="form-group"><label>Data de</label><input type="date" id="rm-data-inicio"></div>
+                        <div class="form-group"><label>Data até</label><input type="date" id="rm-data-fim"></div>
+                        <div class="form-group autocomplete-wrap"><label>Matrícula</label><input type="text" id="rm-matricula" autocomplete="off"><div id="rm-matricula-sugestoes" class="autocomplete-list"></div></div>
+                    </div>
+                    <div id="relatorio-manutencao-lista"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="relatorio-caixa-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Folha de Caixa</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="carregarRelatorioCaixa()">Pesquisar</button>
+                        <button type="button" class="btn btn-success" onclick="exportarRelatorio('caixa','excel')">Exportar Excel</button>
+                        <button type="button" class="btn btn-secondary" onclick="imprimirRelatorio('caixa')">Imprimir</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid four">
+                        <div class="form-group">
+                            <label>Data de emissão de</label>
+                            <input type="date" id="rc-data-inicio">
+                        </div>
+                        <div class="form-group">
+                            <label>Data de emissão até</label>
+                            <input type="date" id="rc-data-fim">
+                        </div>
+                        <div class="form-group autocomplete-wrap">
+                            <label>Fornecedor / NIF</label>
+                            <input type="text" id="rc-fornecedor" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label>Fatura</label>
+                            <input type="text" id="rc-fatura" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label>Ordenar por</label>
+                            <select id="rc-ordem">
+                                <option value="data">Data de Emissão</option>
+                                <option value="id">ID</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="relatorio-caixa-lista"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="relatorio-combustivel-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Relatório de Combustível</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="carregarRelatorioCombustivel()">Pesquisar</button>
+                        <button type="button" class="btn btn-success" onclick="exportarRelatorio('combustivel','excel')">Exportar Excel</button>
+                        <button type="button" class="btn btn-secondary" onclick="imprimirRelatorio('combustivel')">Imprimir</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid four">
+                        <div class="form-group">
+                            <label>Data de</label>
+                            <input type="date" id="rcomb-data-inicio">
+                        </div>
+                        <div class="form-group">
+                            <label>Data até</label>
+                            <input type="date" id="rcomb-data-fim">
+                        </div>
+                        <div class="form-group autocomplete-wrap">
+                            <label>Matrícula</label>
+                            <input type="text" id="rcomb-matricula" autocomplete="off" placeholder="Digite a matrícula">
+                            <div id="rcomb-matricula-sugestoes" class="autocomplete-list"></div>
+                        </div>
+                        <div class="form-group autocomplete-wrap">
+                            <label>Fornecedor / NIF</label>
+                            <input type="text" id="rcomb-fornecedor" autocomplete="off" placeholder="Digite nome ou NIF">
+                            <div id="rcomb-fornecedor-sugestoes" class="autocomplete-list"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Combustível</label>
+                            <input type="text" id="rcomb-combustivel" autocomplete="off" list="combustiveis-menu-list" placeholder="Gasóleo, gasolina, etc.">
+                            <div id="rcomb-combustivel-sugestoes" class="autocomplete-list"></div>
+                        </div>
+                    </div>
+                    <div id="relatorio-combustivel-lista"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="relatorio-documentos-section" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Documento de Frota</h3>
+                    <div class="actions">
+                        <button type="button" class="btn btn-primary" onclick="carregarRelatorioDocumentos()">Pesquisar</button>
+                        <button type="button" class="btn btn-success" onclick="exportarRelatorio('documentos','excel')">Exportar Excel</button>
+                        <button type="button" class="btn btn-secondary" onclick="imprimirRelatorio('documentos')">Imprimir</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid two">
+                        <div class="form-group">
+                            <label>Matrícula</label>
+                            <input type="text" id="rd-matricula">
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="rd-status">
+                                <option value="">Todos</option>
+                                <option value="ok">OK</option>
+                                <option value="a vencer">A vencer</option>
+                                <option value="vencido">Vencido</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="relatorio-documentos-lista"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<div id="fornecedor-modal" class="modal-backdrop hidden">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3>Novo Fornecedor</h3>
+            <button type="button" class="modal-close" onclick="fecharModalFornecedor()">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-grid three">
+                <div class="form-group">
+                    <label>Contribuinte</label>
+                    <input type="text" id="modal-fornecedor-nif">
+                </div>
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" id="modal-fornecedor-nome">
+                </div>
+                <div class="form-group">
+                    <label>IBAN</label>
+                    <input type="text" id="modal-fornecedor-iban">
+                </div>
+                <div class="form-group">
+                    <label>Contato</label>
+                    <input type="text" id="modal-fornecedor-contato">
+                </div>
+                <div class="form-group">
+                    <label>Responsável</label>
+                    <input type="text" id="modal-fornecedor-responsavel">
+                </div>
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="email" id="modal-fornecedor-email">
+                </div>
+                <div class="form-group">
+                    <label>Morada</label>
+                    <input type="text" id="modal-fornecedor-morada">
+                </div>
+                <div class="form-group">
+                    <label>Conselho</label>
+                    <input type="text" id="modal-fornecedor-conselho">
+                </div>
+                <div class="form-group">
+                    <label>Caixa Postal</label>
+                    <input type="text" id="modal-fornecedor-caixa-postal">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="fecharModalFornecedor()">Fechar</button>
+            <button type="button" class="btn btn-primary" onclick="salvarFornecedorModal()">Gravar fornecedor</button>
+        </div>
+    </div>
+</div>
+
+<div id="baixa-fatura-modal" class="modal-backdrop hidden">
+    <div class="modal-card modal-lg">
+        <div class="modal-header">
+            <h3>Baixa da Fatura</h3>
+            <button type="button" class="modal-close" onclick="fecharModalBaixaFatura()">×</button>
+        </div>
+
+        <div class="modal-body">
+            <input type="hidden" id="baixa-fatura-id">
+
+            <div class="form-grid three">
+                <div class="form-group">
+                    <label>Valor da Fatura €</label>
+                    <input type="number" step="0.01" id="baixa-valor-fatura" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Total já pago €</label>
+                    <input type="number" step="0.01" id="baixa-total-ja-pago" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Saldo atual €</label>
+                    <input type="number" step="0.01" id="baixa-saldo-atual" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Dinheiro €</label>
+                    <input type="number" step="0.01" id="baixa-dinheiro" oninput="calcularTotaisBaixaFatura()">
+                </div>
+
+                <div class="form-group">
+                    <label>Cartão €</label>
+                    <input type="number" step="0.01" id="baixa-cartao" oninput="calcularTotaisBaixaFatura()">
+                </div>
+
+                <div class="form-group">
+                    <label>MBWay €</label>
+                    <input type="number" step="0.01" id="baixa-mbway" oninput="calcularTotaisBaixaFatura()">
+                </div>
+
+                <div class="form-group">
+                    <label>Transferência €</label>
+                    <input type="number" step="0.01" id="baixa-transferencia" oninput="calcularTotaisBaixaFatura()">
+                </div>
+
+                <div class="form-group">
+                    <label>Nota de Crédito €</label>
+                    <input type="number" step="0.01" id="baixa-nota-credito" oninput="calcularTotaisBaixaFatura()">
+                </div>
+
+                <div class="form-group">
+                    <label>Total desta Baixa €</label>
+                    <input type="number" step="0.01" id="baixa-total-baixa" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Diferença / Saldo restante €</label>
+                    <input type="number" step="0.01" id="baixa-diferenca" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Próxima Data de Vencimento</label>
+                    <input type="date" id="baixa-proxima-data-vencimento">
+                </div>
+
+                <div class="form-group" style="grid-column: span 3;">
+                    <label>Observação</label>
+                    <input type="text" id="baixa-observacao" placeholder="Observação da baixa">
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="fecharModalBaixaFatura()">Cancelar</button>
+            <button type="button" class="btn btn-primary" onclick="salvarBaixaFatura()">Salvar baixa</button>
+        </div>
+    </div>
+</div>
+
+<div id="alterar-senha-modal" class="modal-backdrop hidden">
+    <div class="modal-card small-modal">
+        <div class="modal-header">
+            <h3 id="alterar-senha-titulo">Alterar senha</h3>
+            <button type="button" class="modal-close" onclick="fecharModalAlterarSenha()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="alterar-senha-usuario-id">
+            <div class="form-grid two">
+                <div class="form-group" style="grid-column: span 2;">
+                    <label>Nova senha</label>
+                    <input type="password" id="alterar-senha-password" autocomplete="new-password">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="fecharModalAlterarSenha()">Cancelar</button>
+            <button type="button" class="btn btn-primary" onclick="salvarAlteracaoSenha()">Salvar senha</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="modal-permissoes" class="modal-overlay hidden">
+    <div class="modal-card" style="max-width:980px;width:92vw;">
+        <div class="modal-card-header">
+            <div>
+                <h3 style="margin:0;">Permissões por rotina</h3>
+                <div class="modal-subtitle">Marque as rotinas que o utilizador pode aceder.</div>
+            </div>
+            <button type="button" class="btn btn-outline" onclick="fecharModalPermissoes()">Fechar</button>
+        </div>
+        <div class="modal-card-body">
+            <div id="permissoes-grid"></div>
+        </div>
+        <div class="modal-card-footer">
+            <button type="button" class="btn btn-secondary" onclick="fecharModalPermissoes()">Cancelar</button>
+            <button type="button" class="btn btn-primary" onclick="aplicarPermissoesDoModal()">Aplicar permissões</button>
+        </div>
+    </div>
+</div>
+
+<style>
+.launch-popup-panels{display:block}.launch-panel{display:none;animation:fadeIn .18s ease}.launch-panel.active{display:block}.pos-popup-tabs{margin-bottom:14px}.pos-popup-tabs .launch-tab{min-width:150px}.launch-tab.active{box-shadow:inset 0 -2px 0 #1d4ed8}.launch-panel .card{margin-bottom:12px}.launch-panel #combustivel-item-panel{display:block}.launch-panel .card-header h3{margin:0}@keyframes fadeIn{from{opacity:.25;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+.elion-launch-card{background:#f8fafc!important;border-radius:18px!important;overflow:hidden!important;}
+.elion-launch-header{display:none!important;}
+.elion-launch-logo{width:64px!important;height:64px!important;max-height:none!important;border-radius:14px!important;background:#fff!important;padding:6px!important;object-fit:contain!important;box-shadow:0 8px 20px rgba(15,23,42,.18)!important;}
+.elion-launch-body{background:#eef2f7!important;}
+.elion-launch-grid{display:grid;grid-template-columns:minmax(360px,420px) 1fr;gap:16px;align-items:start;}
+.elion-info-card,.elion-actions-card,.elion-detail-card,.elion-placeholder-card{border:1px solid #dbe3ef!important;box-shadow:0 10px 24px rgba(15,23,42,.08)!important;background:#fff!important;}
+.elion-mini-grid,.elion-detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+.elion-detail-grid .field-span-2{grid-column:span 2!important;}
+.elion-fuel-stack{display:grid!important;grid-template-columns:repeat(2,minmax(110px,1fr))!important;gap:8px!important;}
+.elion-fuel-stack .fuel-btn{min-height:42px!important;font-size:.86rem!important;font-weight:800!important;border-radius:12px!important;}
+.elion-manutencao-btn{width:100%!important;margin-top:10px!important;min-height:44px!important;font-weight:800!important;}
+.elion-launch-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px;}
+.elion-launch-summary .summary-item{background:#f8fbff;border:1px solid #dbe3ef;border-radius:12px;padding:10px 12px;}
+.elion-launch-summary span{display:block;font-size:.76rem;color:#64748b;margin-bottom:4px;}
+.elion-launch-summary strong{font-size:1.15rem;color:#163b69;}
+.elion-placeholder-card .card-body{min-height:420px;display:flex;align-items:center;justify-content:center;}
+.elion-detail-card .card-body{min-height:420px;}
+@media (max-width: 980px){.elion-launch-grid{grid-template-columns:1fr!important;}.elion-placeholder-card .card-body,.elion-detail-card .card-body{min-height:auto;}}
+
+
+.caixa-launch-grid{grid-template-columns:minmax(340px,390px) 1fr!important;}
+.caixa-left-column .card+.card{margin-top:12px!important;}
+.caixa-right-column .card+.card{margin-top:12px!important;}
+.caixa-fuel-card .card-body{display:grid!important;gap:10px!important;}
+.caixa-entry-card .card-body{display:grid!important;gap:12px!important;}
+.caixa-entry-table-header,.caixa-entry-table-row{display:grid;grid-template-columns:1.45fr .9fr .9fr .9fr 1fr;gap:10px;align-items:end;}
+.caixa-entry-table-header{font-size:.78rem;font-weight:800;color:#52657f;text-transform:uppercase;letter-spacing:.04em;padding:0 2px;}
+.caixa-secondary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+.compact-field input{margin:0!important;}
+.entry-actions-inline{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;}
+.no-card-shell{background:transparent!important;border:none!important;box-shadow:none!important;}
+.caixa-placeholder-body{min-height:150px!important;display:flex;align-items:center;justify-content:center;}
+.caixa-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+@media (max-width:980px){.caixa-launch-grid{grid-template-columns:1fr!important;}.caixa-entry-table-header,.caixa-entry-table-row,.caixa-secondary-grid{grid-template-columns:1fr!important;}}
+
+
+.pos-image2-wrap{background:#eef1f6!important;padding:0!important;}
+.pos-image2-grid{display:grid!important;grid-template-columns:510px 1fr!important;gap:0!important;align-items:stretch!important;}
+.pos-image2-left,.pos-image2-right{background:#fff!important;}
+.pos-image2-left{border-right:1px solid #e5e9f2!important;}
+.pos-image2-block{padding:16px 18px!important;}
+.pos-lanc-title{display:flex!important;align-items:center!important;gap:14px!important;padding:14px 18px 12px!important;border-bottom:1px solid #eceff6!important;background:#fff!important;}
+.pos-lanc-title h3{margin:0!important;font-size:1.15rem!important;color:#2f3650!important;}
+.pos-lanc-title .section-subtitle{display:none!important;}
+.pos-row-line{display:grid!important;grid-template-columns:1fr auto!important;gap:10px!important;align-items:center!important;margin-bottom:10px!important;}
+.pos-row-line .inline-input-action{display:grid!important;grid-template-columns:1fr auto!important;gap:8px!important;width:100%!important;}
+.pos-row-two{display:grid!important;grid-template-columns:1fr 190px!important;gap:10px!important;align-items:center!important;margin-bottom:10px!important;}
+.pos-pay-row{display:grid!important;grid-template-columns:1fr 110px 1fr 110px!important;gap:0!important;align-items:center!important;border:1px solid #dfe5ef!important;border-radius:10px!important;overflow:hidden!important;margin:8px 0 16px!important;}
+.pos-pay-label{padding:10px 14px!important;font-weight:800!important;color:#fff!important;font-size:1rem!important;}
+.pos-pay-value{padding:10px 12px!important;background:#fff8e7!important;font-weight:800!important;color:#b67b00!important;text-align:center!important;font-size:1rem!important;}
+.pos-pay-label.cardao{background:#2c71d1!important;}
+.pos-pay-label.dinheiro{background:#f4b32f!important;}
+.pos-pay-value.cartao{background:#f4f8ff!important;color:#3b2c7b!important;}
+.pos-buttons-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;}
+.pos-buttons-grid .fuel-btn,.pos-buttons-grid .elion-manutencao-btn{min-height:58px!important;font-size:1rem!important;border-radius:8px!important;justify-content:flex-start!important;padding-left:18px!important;}
+.pos-buttons-grid .fuel-btn[data-selected="1"],.pos-buttons-grid .fuel-btn.active{box-shadow:inset 0 0 0 2px rgba(255,255,255,.45)!important;}
+.pos-image2-right .card.inner-card{border:none!important;box-shadow:none!important;background:transparent!important;margin:0!important;}
+.pos-top-table{padding:18px 18px 8px!important;border-bottom:1px solid #eceff6!important;}
+.pos-top-table table{width:100%!important;border-collapse:collapse!important;}
+.pos-top-table th,.pos-top-table td{border:1px solid #dfe5ef!important;padding:12px 10px!important;text-align:center!important;font-size:.94rem!important;}
+.pos-top-table th{background:#f5f7fb!important;color:#394256!important;font-weight:800!important;}
+.pos-top-table td{background:#fff!important;color:#2f3650!important;min-height:56px!important;}
+.pos-summary-strip{display:grid!important;grid-template-columns:1fr auto auto auto!important;gap:24px!important;align-items:end!important;padding:12px 20px 16px!important;color:#35146f!important;font-weight:800!important;font-size:1.1rem!important;}
+.pos-summary-strip .sum-block{display:grid!important;gap:4px!important;text-align:right!important;}
+.pos-summary-strip .sum-block span{font-size:.84rem!important;text-transform:uppercase!important;}
+.pos-detail-shell{padding:16px 18px 18px!important;}
+.pos-detail-shell h4{margin:0 0 14px!important;font-size:1rem!important;color:#2f3650!important;}
+.pos-detail-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important;align-items:end!important;}
+.pos-detail-grid .span-2{grid-column:span 2!important;}
+.pos-detail-grid .span-4{grid-column:span 4!important;}
+.pos-detail-grid label{font-size:.84rem!important;font-weight:700!important;color:#4c5970!important;display:block!important;margin-bottom:6px!important;}
+.pos-detail-grid input{width:100%!important;padding:10px 12px!important;border:1px solid #dfe5ef!important;border-radius:8px!important;font-size:.96rem!important;}
+.pos-action-bar{display:flex!important;justify-content:flex-end!important;gap:16px!important;margin-top:16px!important;}
+.pos-action-bar .btn{min-width:180px!important;min-height:58px!important;font-size:1rem!important;font-weight:800!important;border-radius:8px!important;}
+#launch-placeholder-panel{display:none!important;}
+#combustivel-item-panel.hidden,#manutencao-item-panel.hidden{display:none!important;}
+#combustivel-item-panel:not(.hidden),#manutencao-item-panel:not(.hidden){display:block!important;}
+.entry-actions-inline{display:none!important;}
+@media (max-width:1100px){.pos-image2-grid{grid-template-columns:1fr!important;}.pos-image2-left{border-right:none!important;border-bottom:1px solid #e5e9f2!important;}.pos-summary-strip{grid-template-columns:1fr 1fr!important;gap:12px!important;}.pos-detail-grid{grid-template-columns:1fr 1fr!important;}.pos-detail-grid .span-2,.pos-detail-grid .span-4{grid-column:span 2!important;}}
+
+
+.elion-brand-top-logo{width:104px!important;height:104px!important;border-radius:50%!important;background:#fff!important;border:2px solid rgba(255,255,255,.28)!important;padding:6px!important;object-fit:contain!important;}
+.pos-image2-wrap{border-radius:18px!important;overflow:hidden!important;}
+.pos-image2-left{background:#fbfbfd!important;}
+.pos-image2-right{background:#ffffff!important;}
+.pos-image2-block{padding:14px 16px!important;}
+.pos-lanc-title{padding:14px 16px 12px!important;background:#fff!important;}
+.elion-launch-logo{width:138px!important;height:138px!important;object-fit:contain!important;border-radius:50%!important;background:#fff!important;border:2px solid #c3912d!important;padding:12px!important;box-shadow:0 10px 24px rgba(166,110,8,.16)!important;}
+.pos-row-two label{font-weight:700!important;color:#394256!important;}
+.pos-row-two input,.pos-row-line input{border-radius:8px!important;border:1px solid #d9dfeb!important;background:#fff!important;min-height:40px!important;}
+.pos-pay-row{grid-template-columns:160px 1fr 130px 1fr!important;border-radius:8px!important;background:#fff!important;}
+.pos-pay-row input{border:none!important;border-left:1px solid #dfe5ef!important;border-radius:0!important;min-height:44px!important;font-size:1rem!important;font-weight:800!important;text-align:center!important;box-shadow:none!important;}
+.pos-pay-label.dinheiro{background:linear-gradient(180deg,#f6bf3a,#eca622)!important;color:#fff!important;}
+.pos-pay-label.cardao{background:linear-gradient(180deg,#3778d3,#215fb9)!important;color:#fff!important;}
+.pos-buttons-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;}
+.fuel-btn,.elion-manutencao-btn,.elion-revisao-btn{display:flex!important;align-items:center!important;gap:10px!important;justify-content:flex-start!important;padding:0 16px!important;min-height:58px!important;border-radius:8px!important;border:1px solid rgba(0,0,0,.14)!important;font-size:1rem!important;font-weight:800!important;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.24), 0 2px 6px rgba(15,23,42,.08)!important;}
+.fuel-btn .icon-glyph,.elion-manutencao-btn .icon-glyph,.elion-revisao-btn .icon-glyph{font-size:1.45rem!important;line-height:1!important;display:inline-flex!important;width:28px!important;justify-content:center!important;}
+.fuel-btn.gasolina95{background:linear-gradient(180deg,#2c8c6d,#246f58)!important;}
+.fuel-btn.gasolina98{background:linear-gradient(180deg,#83b156,#688f40)!important;}
+.fuel-btn.gasoleo{background:linear-gradient(180deg,#3d82db,#2f69b6)!important;}
+.fuel-btn.gpl{background:linear-gradient(180deg,#f0ab33,#df9121)!important;}
+.elion-manutencao-btn{background:linear-gradient(180deg,#4d4b68,#35344f)!important;color:#fff!important;}
+.elion-revisao-btn{background:linear-gradient(180deg,#8b5cf6,#6d28d9)!important;color:#fff!important;}
+.fuel-btn.active,.elion-manutencao-btn.active,.elion-revisao-btn.active{box-shadow:inset 0 0 0 2px rgba(255,255,255,.58)!important;transform:translateY(1px)!important;}
+.pos-top-table{padding:14px 16px 8px!important;}
+.pos-top-table th{background:#f2f4f8!important;font-size:.92rem!important;}
+.pos-top-table td{height:56px!important;}
+.pos-summary-strip{padding:10px 16px 14px!important;}
+.pos-detail-shell{padding:14px 16px 16px!important;background:#fff!important;}
+.pos-detail-shell h4{font-size:1.05rem!important;}
+.pos-detail-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;}
+.pos-detail-grid input{min-height:40px!important;border-radius:8px!important;}
+.pos-action-bar .btn:first-child{background:linear-gradient(180deg,#f4bd39,#eca622)!important;color:#fff!important;border:1px solid #d69516!important;}
+.pos-action-bar .btn:last-child{background:linear-gradient(180deg,#df5a4d,#c93e32)!important;color:#fff!important;border:1px solid #b43329!important;}
+.pos-action-bar .btn{min-width:200px!important;min-height:60px!important;font-size:1.05rem!important;box-shadow:0 4px 10px rgba(15,23,42,.08)!important;}
+.inline-input-action .btn.btn-outline{background:#fffaf0!important;color:#c48716!important;border:1px solid #e7c170!important;font-weight:800!important;}
+#combustivel-item-panel,#manutencao-item-panel{padding-top:2px!important;}
+
+.elion-title-stack{display:flex!important;flex-direction:column!important;gap:2px!important;}
+.elion-title-stack h3{margin:0!important;font-size:2rem!important;line-height:1!important;color:#161b28!important;font-weight:800!important;}
+.elion-title-stack .title-sub{font-size:1rem!important;color:#6a4a12!important;font-style:italic!important;font-weight:700!important;}
+#lancamentos-section .pos-pay-row-strong{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important;align-items:end!important;margin-top:8px!important;}
+#lancamentos-section .pos-pay-col{display:flex!important;flex-direction:column!important;gap:8px!important;}
+#lancamentos-section .pos-money-input{height:62px!important;border:2px solid #d4deec!important;border-radius:14px!important;background:#fff!important;font-size:1.45rem!important;font-weight:800!important;color:#1f2f46!important;padding:0 16px!important;box-shadow:inset 0 1px 2px rgba(15,23,42,.04)!important;}
+#lancamentos-section .pos-money-input:focus{border-color:#3b82f6!important;box-shadow:0 0 0 4px rgba(59,130,246,.12)!important;outline:none!important;}
+#lancamentos-section .pos-total-highlight{margin-top:12px!important;}
+#lancamentos-section .pos-total-highlight label{font-size:1.08rem!important;font-weight:900!important;color:#1f2f4d!important;display:block!important;margin-bottom:8px!important;}
+#lancamentos-section .pos-pay-label{font-size:1rem!important;font-weight:900!important;letter-spacing:.02em!important;padding:8px 12px!important;border-radius:10px!important;text-align:center!important;margin-bottom:8px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.4), 0 3px 10px rgba(15,23,42,.08)!important;}
+#lancamentos-section .pos-pay-col .pos-money-input{height:56px!important;font-size:1.5rem!important;font-weight:800!important;text-align:right!important;padding:10px 14px!important;border:2px solid #cdd9ea!important;border-radius:12px!important;background:#fff!important;color:#16324f!important;}
+#lancamentos-section .pos-total-input{height:60px!important;font-size:1.7rem!important;font-weight:900!important;text-align:right!important;padding:10px 14px!important;border:2px solid #7b61ff!important;border-radius:14px!important;background:#f6f2ff!important;color:#311b92!important;box-shadow:0 4px 14px rgba(91,33,182,.08)!important;}
+#lancamentos-section .pos-summary-strip-single{grid-template-columns:1fr!important;justify-items:end!important;}
+#lancamentos-section .destaque-total span{font-size:.86rem!important;text-transform:uppercase!important;letter-spacing:.03em!important;}
+#lancamentos-section .destaque-total strong{font-size:2rem!important;color:#35146f!important;}
+#lancamentos-section .pos-total-input{height:66px!important;border:2px solid #cfdced!important;border-radius:16px!important;background:linear-gradient(180deg,#f8fbff,#eef4fb)!important;font-size:1.7rem!important;font-weight:900!important;color:#183153!important;padding:0 18px!important;box-shadow:0 8px 18px rgba(15,23,42,.06)!important;}
+#lancamentos-section .icon-glyph{display:inline-block!important;width:30px!important;height:30px!important;background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important;}
+#lancamentos-section .fuel-nozzle{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23fff' d='M18 9h16c3.3 0 6 2.7 6 6v34h4c2.2 0 4 1.8 4 4v2H12v-2c0-2.2 1.8-4 4-4h2V9zm26 8 7 7v9c0 1.7 1.3 3 3 3s3-1.3 3-3V18h4v15c0 3.9-3.1 7-7 7s-7-3.1-7-7v-7l-7-7 4-4zM22 15v12h12V15H22z'/%3E%3C/svg%3E")!important;}
+#lancamentos-section .wrench-icon{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23fff' d='M56.6 18.3a14 14 0 0 1-18.9 13.1L18.4 50.7a6 6 0 1 1-8.5-8.5l19.3-19.3A14 14 0 0 1 42.4 3.9l-8.5 8.5 9.2 9.2 8.5-8.5a14 14 0 0 1 5 5.2z'/%3E%3C/svg%3E")!important;}
+#lancamentos-section .fuel-btn,#lancamentos-section .elion-manutencao-btn{min-height:64px!important;font-size:1.05rem!important;}
+
+#lancamentos-section .pos-title-actions{display:flex!important;align-items:center!important;gap:10px!important;flex-wrap:wrap!important;justify-content:flex-end!important;}
+#lancamentos-section .pos-title-actions .btn{min-height:44px!important;font-weight:800!important;}
+#lancamentos-section .company-routine-logo{max-height:96px!important;max-width:180px!important;object-fit:contain!important;}
+#lancamentos-section .lancamento-botoes-secundarios{grid-template-columns:repeat(2,minmax(220px,1fr))!important;}
+#lancamentos-section .lancamento-botoes-secundarios .btn-label{white-space:normal!important;}
+#lancamentos-section #revisao-button-slot .elion-revisao-btn,#lancamentos-section #manutencao-button-slot .elion-manutencao-btn{width:100%!important;height:44px!important;min-height:44px!important;}
+
+
+
+/* Ajuste final compacto dos botões da rotina de lançamentos */
+#lancamentos-section .pos-fuel-selector-bar.lancamento-botoes-topo{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:10px !important;
+    align-items:start !important;
+    margin-bottom:10px !important;
+}
+#lancamentos-section .lancamento-botoes-topo #fuel-button-grid,
+#lancamentos-section .lancamento-botoes-topo .lancamento-botoes-secundarios{
+    width:100% !important;
+}
+#lancamentos-section .lancamento-botoes-topo #fuel-button-grid{
+    display:grid !important;
+    grid-template-columns:repeat(2, minmax(170px, 1fr)) !important;
+    gap:8px !important;
+}
+#lancamentos-section .lancamento-botoes-topo .lancamento-botoes-secundarios{
+    display:grid !important;
+    grid-template-columns:repeat(2, minmax(170px, 1fr)) !important;
+    gap:8px !important;
+}
+#lancamentos-section .lancamento-botoes-topo #revisao-button-slot,
+#lancamentos-section .lancamento-botoes-topo #manutencao-button-slot{
+    display:block !important;
+    width:100% !important;
+}
+#lancamentos-section .lancamento-botoes-topo .fuel-btn,
+#lancamentos-section .lancamento-botoes-topo .elion-manutencao-btn,
+#lancamentos-section .lancamento-botoes-topo .elion-revisao-btn{
+    width:100% !important;
+    min-height:42px !important;
+    height:42px !important;
+    padding:0 12px !important;
+    border-radius:10px !important;
+    font-size:.86rem !important;
+    line-height:1 !important;
+    gap:8px !important;
+    box-shadow:0 2px 6px rgba(15,23,42,.10) !important;
+}
+#lancamentos-section .lancamento-botoes-topo .fuel-btn .icon-glyph,
+#lancamentos-section .lancamento-botoes-topo .elion-manutencao-btn .icon-glyph,
+#lancamentos-section .lancamento-botoes-topo .elion-revisao-btn .icon-glyph{
+    width:20px !important;
+    height:20px !important;
+    font-size:1rem !important;
+    border-radius:6px !important;
+    flex:0 0 20px !important;
+    background:rgba(255,255,255,.18) !important;
+}
+#lancamentos-section .lancamento-botoes-topo .fuel-btn .btn-label,
+#lancamentos-section .lancamento-botoes-topo .elion-manutencao-btn .btn-label,
+#lancamentos-section .lancamento-botoes-topo .elion-revisao-btn .btn-label{
+    font-size:.86rem !important;
+    line-height:1 !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+}
+#lancamentos-section .lancamento-botoes-topo .elion-manutencao-btn,
+#lancamentos-section .lancamento-botoes-topo .elion-revisao-btn{
+    margin-top:0 !important;
+}
+@media (max-width: 900px){
+    #lancamentos-section .lancamento-botoes-topo #fuel-button-grid,
+    #lancamentos-section .lancamento-botoes-topo .lancamento-botoes-secundarios{
+        grid-template-columns:1fr !important;
+    }
+}
+
+</style>
+<style>.perm-routine-row{display:grid;grid-template-columns:2.2fr repeat(5,1fr);gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #edf2f7}.perm-routine-row.header{font-weight:700;color:#5f7188;text-transform:uppercase;font-size:.8rem}.perm-routine-title{font-weight:700;color:#173761}.perm-disabled{opacity:.45}.hidden{display:none !important}.modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.45);display:flex;align-items:center;justify-content:center;z-index:50}.modal-card{background:#fff;border-radius:18px;box-shadow:0 24px 60px rgba(15,23,42,.25);overflow:hidden}.modal-card-header,.modal-card-footer{padding:14px 16px;border-bottom:1px solid #edf2f7;display:flex;justify-content:space-between;align-items:center;gap:12px}.modal-card-footer{border-top:1px solid #edf2f7;border-bottom:none}.modal-card-body{padding:16px;max-height:70vh;overflow:auto}.modal-subtitle{color:#60748c;margin-top:4px}
+.elion-launch-card{background:#f8fafc!important;border-radius:18px!important;overflow:hidden!important;}
+.elion-launch-header{display:none!important;}
+.elion-launch-logo{width:64px!important;height:64px!important;max-height:none!important;border-radius:14px!important;background:#fff!important;padding:6px!important;object-fit:contain!important;box-shadow:0 8px 20px rgba(15,23,42,.18)!important;}
+.elion-launch-body{background:#eef2f7!important;}
+.elion-launch-grid{display:grid;grid-template-columns:minmax(360px,420px) 1fr;gap:16px;align-items:start;}
+.elion-info-card,.elion-actions-card,.elion-detail-card,.elion-placeholder-card{border:1px solid #dbe3ef!important;box-shadow:0 10px 24px rgba(15,23,42,.08)!important;background:#fff!important;}
+.elion-mini-grid,.elion-detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+.elion-detail-grid .field-span-2{grid-column:span 2!important;}
+.elion-fuel-stack{display:grid!important;grid-template-columns:repeat(2,minmax(110px,1fr))!important;gap:8px!important;}
+.elion-fuel-stack .fuel-btn{min-height:42px!important;font-size:.86rem!important;font-weight:800!important;border-radius:12px!important;}
+.elion-manutencao-btn{width:100%!important;margin-top:10px!important;min-height:44px!important;font-weight:800!important;}
+.elion-launch-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px;}
+.elion-launch-summary .summary-item{background:#f8fbff;border:1px solid #dbe3ef;border-radius:12px;padding:10px 12px;}
+.elion-launch-summary span{display:block;font-size:.76rem;color:#64748b;margin-bottom:4px;}
+.elion-launch-summary strong{font-size:1.15rem;color:#163b69;}
+.elion-placeholder-card .card-body{min-height:420px;display:flex;align-items:center;justify-content:center;}
+.elion-detail-card .card-body{min-height:420px;}
+@media (max-width: 980px){.elion-launch-grid{grid-template-columns:1fr!important;}.elion-placeholder-card .card-body,.elion-detail-card .card-body{min-height:auto;}}
+
+
+.caixa-launch-grid{grid-template-columns:minmax(340px,390px) 1fr!important;}
+.caixa-left-column .card+.card{margin-top:12px!important;}
+.caixa-right-column .card+.card{margin-top:12px!important;}
+.caixa-fuel-card .card-body{display:grid!important;gap:10px!important;}
+.caixa-entry-card .card-body{display:grid!important;gap:12px!important;}
+.caixa-entry-table-header,.caixa-entry-table-row{display:grid;grid-template-columns:1.45fr .9fr .9fr .9fr 1fr;gap:10px;align-items:end;}
+.caixa-entry-table-header{font-size:.78rem;font-weight:800;color:#52657f;text-transform:uppercase;letter-spacing:.04em;padding:0 2px;}
+.caixa-secondary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+.compact-field input{margin:0!important;}
+.entry-actions-inline{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;}
+.no-card-shell{background:transparent!important;border:none!important;box-shadow:none!important;}
+.caixa-placeholder-body{min-height:150px!important;display:flex;align-items:center;justify-content:center;}
+.caixa-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+@media (max-width:980px){.caixa-launch-grid{grid-template-columns:1fr!important;}.caixa-entry-table-header,.caixa-entry-table-row,.caixa-secondary-grid{grid-template-columns:1fr!important;}}
+
+
+.pos-image2-wrap{background:#eef1f6!important;padding:0!important;}
+.pos-image2-grid{display:grid!important;grid-template-columns:510px 1fr!important;gap:0!important;align-items:stretch!important;}
+.pos-image2-left,.pos-image2-right{background:#fff!important;}
+.pos-image2-left{border-right:1px solid #e5e9f2!important;}
+.pos-image2-block{padding:16px 18px!important;}
+.pos-lanc-title{display:flex!important;align-items:center!important;gap:14px!important;padding:14px 18px 12px!important;border-bottom:1px solid #eceff6!important;background:#fff!important;}
+.pos-lanc-title h3{margin:0!important;font-size:1.15rem!important;color:#2f3650!important;}
+.pos-lanc-title .section-subtitle{display:none!important;}
+.pos-row-line{display:grid!important;grid-template-columns:1fr auto!important;gap:10px!important;align-items:center!important;margin-bottom:10px!important;}
+.pos-row-line .inline-input-action{display:grid!important;grid-template-columns:1fr auto!important;gap:8px!important;width:100%!important;}
+.pos-row-two{display:grid!important;grid-template-columns:1fr 190px!important;gap:10px!important;align-items:center!important;margin-bottom:10px!important;}
+.pos-pay-row{display:grid!important;grid-template-columns:1fr 110px 1fr 110px!important;gap:0!important;align-items:center!important;border:1px solid #dfe5ef!important;border-radius:10px!important;overflow:hidden!important;margin:8px 0 16px!important;}
+.pos-pay-label{padding:10px 14px!important;font-weight:800!important;color:#fff!important;font-size:1rem!important;}
+.pos-pay-value{padding:10px 12px!important;background:#fff8e7!important;font-weight:800!important;color:#b67b00!important;text-align:center!important;font-size:1rem!important;}
+.pos-pay-label.cardao{background:#2c71d1!important;}
+.pos-pay-label.dinheiro{background:#f4b32f!important;}
+.pos-pay-value.cartao{background:#f4f8ff!important;color:#3b2c7b!important;}
+.pos-buttons-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;}
+.pos-buttons-grid .fuel-btn,.pos-buttons-grid .elion-manutencao-btn{min-height:58px!important;font-size:1rem!important;border-radius:8px!important;justify-content:flex-start!important;padding-left:18px!important;}
+.pos-buttons-grid .fuel-btn[data-selected="1"],.pos-buttons-grid .fuel-btn.active{box-shadow:inset 0 0 0 2px rgba(255,255,255,.45)!important;}
+.pos-image2-right .card.inner-card{border:none!important;box-shadow:none!important;background:transparent!important;margin:0!important;}
+.pos-top-table{padding:18px 18px 8px!important;border-bottom:1px solid #eceff6!important;}
+.pos-top-table table{width:100%!important;border-collapse:collapse!important;}
+.pos-top-table th,.pos-top-table td{border:1px solid #dfe5ef!important;padding:12px 10px!important;text-align:center!important;font-size:.94rem!important;}
+.pos-top-table th{background:#f5f7fb!important;color:#394256!important;font-weight:800!important;}
+.pos-top-table td{background:#fff!important;color:#2f3650!important;min-height:56px!important;}
+.pos-summary-strip{display:grid!important;grid-template-columns:1fr auto auto auto!important;gap:24px!important;align-items:end!important;padding:12px 20px 16px!important;color:#35146f!important;font-weight:800!important;font-size:1.1rem!important;}
+.pos-summary-strip .sum-block{display:grid!important;gap:4px!important;text-align:right!important;}
+.pos-summary-strip .sum-block span{font-size:.84rem!important;text-transform:uppercase!important;}
+.pos-detail-shell{padding:16px 18px 18px!important;}
+.pos-detail-shell h4{margin:0 0 14px!important;font-size:1rem!important;color:#2f3650!important;}
+.pos-detail-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important;align-items:end!important;}
+.pos-detail-grid .span-2{grid-column:span 2!important;}
+.pos-detail-grid .span-4{grid-column:span 4!important;}
+.pos-detail-grid label{font-size:.84rem!important;font-weight:700!important;color:#4c5970!important;display:block!important;margin-bottom:6px!important;}
+.pos-detail-grid input{width:100%!important;padding:10px 12px!important;border:1px solid #dfe5ef!important;border-radius:8px!important;font-size:.96rem!important;}
+.pos-action-bar{display:flex!important;justify-content:flex-end!important;gap:16px!important;margin-top:16px!important;}
+.pos-action-bar .btn{min-width:180px!important;min-height:58px!important;font-size:1rem!important;font-weight:800!important;border-radius:8px!important;}
+#launch-placeholder-panel{display:none!important;}
+#combustivel-item-panel.hidden,#manutencao-item-panel.hidden{display:none!important;}
+#combustivel-item-panel:not(.hidden),#manutencao-item-panel:not(.hidden){display:block!important;}
+.entry-actions-inline{display:none!important;}
+@media (max-width:1100px){.pos-image2-grid{grid-template-columns:1fr!important;}.pos-image2-left{border-right:none!important;border-bottom:1px solid #e5e9f2!important;}.pos-summary-strip{grid-template-columns:1fr 1fr!important;gap:12px!important;}.pos-detail-grid{grid-template-columns:1fr 1fr!important;}.pos-detail-grid .span-2,.pos-detail-grid .span-4{grid-column:span 2!important;}}
+
+
+.elion-brand-top-logo{width:104px!important;height:104px!important;border-radius:50%!important;background:#fff!important;border:2px solid rgba(255,255,255,.28)!important;padding:6px!important;object-fit:contain!important;}
+.pos-image2-wrap{border-radius:18px!important;overflow:hidden!important;}
+.pos-image2-left{background:#fbfbfd!important;}
+.pos-image2-right{background:#ffffff!important;}
+.pos-image2-block{padding:14px 16px!important;}
+.pos-lanc-title{padding:14px 16px 12px!important;background:#fff!important;}
+.elion-launch-logo{width:138px!important;height:138px!important;object-fit:contain!important;border-radius:50%!important;background:#fff!important;border:2px solid #c3912d!important;padding:12px!important;box-shadow:0 10px 24px rgba(166,110,8,.16)!important;}
+.pos-row-two label{font-weight:700!important;color:#394256!important;}
+.pos-row-two input,.pos-row-line input{border-radius:8px!important;border:1px solid #d9dfeb!important;background:#fff!important;min-height:40px!important;}
+.pos-pay-row{grid-template-columns:160px 1fr 130px 1fr!important;border-radius:8px!important;background:#fff!important;}
+.pos-pay-row input{border:none!important;border-left:1px solid #dfe5ef!important;border-radius:0!important;min-height:44px!important;font-size:1rem!important;font-weight:800!important;text-align:center!important;box-shadow:none!important;}
+.pos-pay-label.dinheiro{background:linear-gradient(180deg,#f6bf3a,#eca622)!important;color:#fff!important;}
+.pos-pay-label.cardao{background:linear-gradient(180deg,#3778d3,#215fb9)!important;color:#fff!important;}
+.pos-buttons-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;}
+.fuel-btn,.elion-manutencao-btn,.elion-revisao-btn{display:flex!important;align-items:center!important;gap:10px!important;justify-content:flex-start!important;padding:0 16px!important;min-height:58px!important;border-radius:8px!important;border:1px solid rgba(0,0,0,.14)!important;font-size:1rem!important;font-weight:800!important;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.24), 0 2px 6px rgba(15,23,42,.08)!important;}
+.fuel-btn .icon-glyph,.elion-manutencao-btn .icon-glyph,.elion-revisao-btn .icon-glyph{font-size:1.45rem!important;line-height:1!important;display:inline-flex!important;width:28px!important;justify-content:center!important;}
+.fuel-btn.gasolina95{background:linear-gradient(180deg,#2c8c6d,#246f58)!important;}
+.fuel-btn.gasolina98{background:linear-gradient(180deg,#83b156,#688f40)!important;}
+.fuel-btn.gasoleo{background:linear-gradient(180deg,#3d82db,#2f69b6)!important;}
+.fuel-btn.gpl{background:linear-gradient(180deg,#f0ab33,#df9121)!important;}
+.elion-manutencao-btn{background:linear-gradient(180deg,#4d4b68,#35344f)!important;color:#fff!important;}
+.elion-revisao-btn{background:linear-gradient(180deg,#8b5cf6,#6d28d9)!important;color:#fff!important;}
+.fuel-btn.active,.elion-manutencao-btn.active,.elion-revisao-btn.active{box-shadow:inset 0 0 0 2px rgba(255,255,255,.58)!important;transform:translateY(1px)!important;}
+.pos-top-table{padding:14px 16px 8px!important;}
+.pos-top-table th{background:#f2f4f8!important;font-size:.92rem!important;}
+.pos-top-table td{height:56px!important;}
+.pos-summary-strip{padding:10px 16px 14px!important;}
+.pos-detail-shell{padding:14px 16px 16px!important;background:#fff!important;}
+.pos-detail-shell h4{font-size:1.05rem!important;}
+.pos-detail-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;}
+.pos-detail-grid input{min-height:40px!important;border-radius:8px!important;}
+.pos-action-bar .btn:first-child{background:linear-gradient(180deg,#f4bd39,#eca622)!important;color:#fff!important;border:1px solid #d69516!important;}
+.pos-action-bar .btn:last-child{background:linear-gradient(180deg,#df5a4d,#c93e32)!important;color:#fff!important;border:1px solid #b43329!important;}
+.pos-action-bar .btn{min-width:200px!important;min-height:60px!important;font-size:1.05rem!important;box-shadow:0 4px 10px rgba(15,23,42,.08)!important;}
+.inline-input-action .btn.btn-outline{background:#fffaf0!important;color:#c48716!important;border:1px solid #e7c170!important;font-weight:800!important;}
+#combustivel-item-panel,#manutencao-item-panel{padding-top:2px!important;}
+
+.elion-title-stack{display:flex!important;flex-direction:column!important;gap:2px!important;}
+.elion-title-stack h3{margin:0!important;font-size:2rem!important;line-height:1!important;color:#161b28!important;font-weight:800!important;}
+.elion-title-stack .title-sub{font-size:1rem!important;color:#6a4a12!important;font-style:italic!important;font-weight:700!important;}
+#lancamentos-section .pos-pay-row-strong{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important;align-items:end!important;margin-top:8px!important;}
+#lancamentos-section .pos-pay-col{display:flex!important;flex-direction:column!important;gap:8px!important;}
+#lancamentos-section .pos-money-input{height:62px!important;border:2px solid #d4deec!important;border-radius:14px!important;background:#fff!important;font-size:1.45rem!important;font-weight:800!important;color:#1f2f46!important;padding:0 16px!important;box-shadow:inset 0 1px 2px rgba(15,23,42,.04)!important;}
+#lancamentos-section .pos-money-input:focus{border-color:#3b82f6!important;box-shadow:0 0 0 4px rgba(59,130,246,.12)!important;outline:none!important;}
+#lancamentos-section .pos-total-highlight{margin-top:12px!important;}
+#lancamentos-section .pos-total-highlight label{font-size:1.08rem!important;font-weight:900!important;color:#1f2f4d!important;display:block!important;margin-bottom:8px!important;}
+#lancamentos-section .pos-pay-label{font-size:1rem!important;font-weight:900!important;letter-spacing:.02em!important;padding:8px 12px!important;border-radius:10px!important;text-align:center!important;margin-bottom:8px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.4), 0 3px 10px rgba(15,23,42,.08)!important;}
+#lancamentos-section .pos-pay-col .pos-money-input{height:56px!important;font-size:1.5rem!important;font-weight:800!important;text-align:right!important;padding:10px 14px!important;border:2px solid #cdd9ea!important;border-radius:12px!important;background:#fff!important;color:#16324f!important;}
+#lancamentos-section .pos-total-input{height:60px!important;font-size:1.7rem!important;font-weight:900!important;text-align:right!important;padding:10px 14px!important;border:2px solid #7b61ff!important;border-radius:14px!important;background:#f6f2ff!important;color:#311b92!important;box-shadow:0 4px 14px rgba(91,33,182,.08)!important;}
+#lancamentos-section .pos-summary-strip-single{grid-template-columns:1fr!important;justify-items:end!important;}
+#lancamentos-section .destaque-total span{font-size:.86rem!important;text-transform:uppercase!important;letter-spacing:.03em!important;}
+#lancamentos-section .destaque-total strong{font-size:2rem!important;color:#35146f!important;}
+#lancamentos-section .pos-total-input{height:66px!important;border:2px solid #cfdced!important;border-radius:16px!important;background:linear-gradient(180deg,#f8fbff,#eef4fb)!important;font-size:1.7rem!important;font-weight:900!important;color:#183153!important;padding:0 18px!important;box-shadow:0 8px 18px rgba(15,23,42,.06)!important;}
+#lancamentos-section .icon-glyph{display:inline-block!important;width:30px!important;height:30px!important;background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important;}
+#lancamentos-section .fuel-nozzle{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23fff' d='M18 9h16c3.3 0 6 2.7 6 6v34h4c2.2 0 4 1.8 4 4v2H12v-2c0-2.2 1.8-4 4-4h2V9zm26 8 7 7v9c0 1.7 1.3 3 3 3s3-1.3 3-3V18h4v15c0 3.9-3.1 7-7 7s-7-3.1-7-7v-7l-7-7 4-4zM22 15v12h12V15H22z'/%3E%3C/svg%3E")!important;}
+#lancamentos-section .wrench-icon{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23fff' d='M56.6 18.3a14 14 0 0 1-18.9 13.1L18.4 50.7a6 6 0 1 1-8.5-8.5l19.3-19.3A14 14 0 0 1 42.4 3.9l-8.5 8.5 9.2 9.2 8.5-8.5a14 14 0 0 1 5 5.2z'/%3E%3C/svg%3E")!important;}
+#lancamentos-section .fuel-btn,#lancamentos-section .elion-manutencao-btn{min-height:64px!important;font-size:1.05rem!important;}
+
+#lancamentos-section .pos-title-actions{display:flex!important;align-items:center!important;gap:10px!important;flex-wrap:wrap!important;justify-content:flex-end!important;}
+#lancamentos-section .pos-title-actions .btn{min-height:44px!important;font-weight:800!important;}
+#lancamentos-section .company-routine-logo{max-height:96px!important;max-width:180px!important;object-fit:contain!important;}
+#lancamentos-section .lancamento-botoes-secundarios{grid-template-columns:repeat(2,minmax(220px,1fr))!important;}
+#lancamentos-section .lancamento-botoes-secundarios .btn-label{white-space:normal!important;}
+#lancamentos-section #revisao-button-slot .elion-revisao-btn,#lancamentos-section #manutencao-button-slot .elion-manutencao-btn{width:100%!important;height:44px!important;min-height:44px!important;}
+
+
+.lancamento-botoes-topo{display:grid!important;grid-template-columns:1fr!important;align-items:start!important;gap:10px!important;margin:0 0 10px!important;}
+.lancamento-botoes-topo .elion-fuel-stack{display:grid!important;grid-template-columns:repeat(2,minmax(220px,1fr))!important;gap:10px!important;}
+.lancamento-botoes-topo .fuel-btn,.lancamento-botoes-topo .elion-manutencao-btn,.lancamento-botoes-topo .elion-revisao-btn{min-height:44px!important;height:44px!important;font-size:.88rem!important;border-radius:12px!important;padding:0 14px!important;box-shadow:0 4px 10px rgba(15,23,42,.10)!important;}
+.lancamento-botoes-topo .lancamento-botoes-secundarios{display:grid!important;grid-template-columns:repeat(2,minmax(220px,1fr))!important;gap:10px!important;}
+.lancamento-botoes-topo .lancamento-botao-linha,.lancamento-botoes-topo .manutencao-button-grid{display:block!important;}
+.lancamento-botoes-topo .elion-revisao-btn,.lancamento-botoes-topo .elion-manutencao-btn{width:100%!important;min-width:0!important;}
+.lancamento-botoes-topo .icon-glyph{width:26px!important;height:26px!important;flex:0 0 26px!important;border-radius:9px!important;}
+.lancamento-botoes-topo .btn-label{font-size:.88rem!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;}
+.lancamento-grade-topo{margin-top:2px!important;}
+#lancamentos-section .pos-summary-strip,#lancamentos-section .pos-summary-strip-single{display:none!important;}
+@media (max-width:1100px){.lancamento-botoes-topo .elion-fuel-stack,.lancamento-botoes-topo .lancamento-botoes-secundarios{grid-template-columns:repeat(2,minmax(180px,1fr))!important;}}
+@media (max-width:700px){.lancamento-botoes-topo .elion-fuel-stack,.lancamento-botoes-topo .lancamento-botoes-secundarios{grid-template-columns:1fr!important;}}
+
+/* AJUSTE FINAL COMPACTO DOS BOTÕES NA ROTINA DE LANÇAMENTOS */
+#lancamentos-section .pos-action-bar.pos-fuel-selector-bar{
+  display:grid !important;
+  grid-template-columns:1fr !important;
+  gap:8px !important;
+  margin:0 0 8px !important;
+}
+#lancamentos-section #fuel-button-grid,
+#lancamentos-section .lancamento-botoes-secundarios{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:8px !important;
+  width:100% !important;
+}
+#lancamentos-section #revisao-button-slot,
+#lancamentos-section #manutencao-button-slot,
+#lancamentos-section #revisao-button-slot .manutencao-button-grid,
+#lancamentos-section #manutencao-button-slot .manutencao-button-grid{
+  display:block !important;
+  width:100% !important;
+}
+#lancamentos-section .fuel-btn,
+#lancamentos-section .elion-revisao-btn,
+#lancamentos-section .elion-manutencao-btn{
+  min-height:44px !important;
+  height:44px !important;
+  padding:0 12px !important;
+  border-radius:10px !important;
+  font-size:14px !important;
+  line-height:1.1 !important;
+  box-shadow:0 2px 6px rgba(15,23,42,.08) !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  gap:10px !important;
+  width:100% !important;
+  margin:0 !important;
+}
+#lancamentos-section .fuel-btn .icon-glyph,
+#lancamentos-section .elion-revisao-btn .icon-glyph,
+#lancamentos-section .elion-manutencao-btn .icon-glyph{
+  width:24px !important;
+  height:24px !important;
+  flex:0 0 24px !important;
+  border-radius:8px !important;
+  font-size:1rem !important;
+}
+#lancamentos-section .fuel-btn .btn-label,
+#lancamentos-section .elion-revisao-btn .btn-label,
+#lancamentos-section .elion-manutencao-btn .btn-label{
+  font-size:14px !important;
+  font-weight:800 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+#lancamentos-section .lancamento-botoes-topo,
+#lancamentos-section .lancamento-botoes-verticais{
+  gap:8px !important;
+  margin-bottom:8px !important;
+}
+@media (max-width: 900px){
+  #lancamentos-section #fuel-button-grid,
+  #lancamentos-section .lancamento-botoes-secundarios{
+    grid-template-columns:1fr !important;
+  }
+}
+
+
+
+/* Ajuste final compacto dos botões da rotina de lançamentos */
+#lancamentos-section .pos-fuel-selector-bar.lancamento-botoes-topo{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:10px !important;
+    align-items:start !important;
+    margin-bottom:10px !important;
+}
+#lancamentos-section .lancamento-botoes-topo #fuel-button-grid,
+#lancamentos-section .lancamento-botoes-topo .lancamento-botoes-secundarios{
+    width:100% !important;
+}
+#lancamentos-section .lancamento-botoes-topo #fuel-button-grid{
+    display:grid !important;
+    grid-template-columns:repeat(2, minmax(170px, 1fr)) !important;
+    gap:8px !important;
+}
+#lancamentos-section .lancamento-botoes-topo .lancamento-botoes-secundarios{
+    display:grid !important;
+    grid-template-columns:repeat(2, minmax(170px, 1fr)) !important;
+    gap:8px !important;
+}
+#lancamentos-section .lancamento-botoes-topo #revisao-button-slot,
+#lancamentos-section .lancamento-botoes-topo #manutencao-button-slot{
+    display:block !important;
+    width:100% !important;
+}
+#lancamentos-section .lancamento-botoes-topo .fuel-btn,
+#lancamentos-section .lancamento-botoes-topo .elion-manutencao-btn,
+#lancamentos-section .lancamento-botoes-topo .elion-revisao-btn{
+    width:100% !important;
+    min-height:42px !important;
+    height:42px !important;
+    padding:0 12px !important;
+    border-radius:10px !important;
+    font-size:.86rem !important;
+    line-height:1 !important;
+    gap:8px !important;
+    box-shadow:0 2px 6px rgba(15,23,42,.10) !important;
+}
+#lancamentos-section .lancamento-botoes-topo .fuel-btn .icon-glyph,
+#lancamentos-section .lancamento-botoes-topo .elion-manutencao-btn .icon-glyph,
+#lancamentos-section .lancamento-botoes-topo .elion-revisao-btn .icon-glyph{
+    width:20px !important;
+    height:20px !important;
+    font-size:1rem !important;
+    border-radius:6px !important;
+    flex:0 0 20px !important;
+    background:rgba(255,255,255,.18) !important;
+}
+#lancamentos-section .lancamento-botoes-topo .fuel-btn .btn-label,
+#lancamentos-section .lancamento-botoes-topo .elion-manutencao-btn .btn-label,
+#lancamentos-section .lancamento-botoes-topo .elion-revisao-btn .btn-label{
+    font-size:.86rem !important;
+    line-height:1 !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+}
+#lancamentos-section .lancamento-botoes-topo .elion-manutencao-btn,
+#lancamentos-section .lancamento-botoes-topo .elion-revisao-btn{
+    margin-top:0 !important;
+}
+@media (max-width: 900px){
+    #lancamentos-section .lancamento-botoes-topo #fuel-button-grid,
+    #lancamentos-section .lancamento-botoes-topo .lancamento-botoes-secundarios{
+        grid-template-columns:1fr !important;
+    }
+}
+
+</style>
+
+<div id="toast-container"></div>
+
+
+<script>
+    window.ELION_INITIAL = {
+        secaoAtiva: "{{ secao_ativa|default:'dashboard' }}",
+        combustiveisMenu: {{ combustiveis_menu|safe }},
+        empresasUsuario: {{ empresas_json|safe }},
+        frotaMenu: {{ frota_json|safe }},
+        permissoesUsuario: {{ permissoes_usuario_json|safe }},
+        rotinasPermissoes: {{ rotinas_permissoes_json|safe }},
+        manutencaoBotao: {{ manutencao_botao_json|safe }},
+        manutencaoTipos: {{ manutencao_tipos_json|safe }}
+    };
+</script>
+<script src="{% static 'Elion/js/dashboard.js' %}?v=20260625fix1"></script>
+
+<script>
+(function () {
+    function limparGradeLancamentoNoDOM() {
+        try {
+            if (window.App) {
+                window.App.itensCombustivel = [];
+                window.App.itensManutencao = [];
+                window.App.itensRevisao = [];
+            }
+            const ids = [
+                'item-combustivel-id','item-combustivel-combustivel-id','item-combustivel-matricula',
+                'item-km-inicio','item-km-final','item-km-total','item-litro','item-valor-litro','item-valor-total','item-combustivel-observacao',
+                'item-manutencao-id','item-manutencao-frota-id','item-manutencao-matricula',
+                'item-manutencao-km-inicio','item-manutencao-km-final','item-manutencao-km-total',
+                'item-manutencao-litro','item-manutencao-valor-litro','item-manutencao-valor','item-manutencao-observacao',
+                'item-revisao-id','item-revisao-frota-id','item-revisao-matricula','item-revisao-marca','item-revisao-modelo',
+                'item-revisao-data','item-revisao-km-inicio','item-revisao-km-final','item-revisao-km-total',
+                'item-revisao-km-rodados','item-revisao-kms-previsao','item-revisao-km-para-revisao',
+                'item-revisao-funcionario-id','item-revisao-funcionario','item-revisao-observacao'
+            ];
+            ids.forEach(function (id) {
+                var el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            var preview = document.getElementById('itens-lancamento-preview');
+            if (preview) {
+                preview.innerHTML = '<tr><td>1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>€ 0,00</td><td></td></tr>';
+            }
+            var total = document.getElementById('elion-saldo-label');
+            if (total) total.textContent = '€0,00';
+            var totalPago = document.getElementById('elion-total-pago-label');
+            if (totalPago) totalPago.textContent = '€0,00';
+            var hiddenComb = document.getElementById('itens-combustivel-grid');
+            if (hiddenComb) hiddenComb.innerHTML = '';
+            var hiddenMan = document.getElementById('itens-manutencao-grid');
+            if (hiddenMan) hiddenMan.innerHTML = '';
+            var hiddenRev = document.getElementById('itens-revisao-grid');
+            if (hiddenRev) hiddenRev.innerHTML = '';
+        } catch (e) {}
+    }
+
+    window.limparGradeLancamentoNoDOM = limparGradeLancamentoNoDOM;
+
+    function aplicarOverrideSalvar() {
+        if (typeof window.salvarLancamento !== 'function' || window.salvarLancamento.__overrideLimpeza) return;
+        var original = window.salvarLancamento;
+        var wrapped = async function () {
+            var result = await original.apply(this, arguments);
+            limparGradeLancamentoNoDOM();
+            setTimeout(limparGradeLancamentoNoDOM, 50);
+            setTimeout(limparGradeLancamentoNoDOM, 250);
+            return result;
+        };
+        wrapped.__overrideLimpeza = true;
+        window.salvarLancamento = wrapped;
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+            aplicarOverrideSalvar();
+            limparGradeLancamentoNoDOM();
+        });
+    } else {
+        aplicarOverrideSalvar();
+        limparGradeLancamentoNoDOM();
+    }
+
+    window.addEventListener('load', function () {
+        aplicarOverrideSalvar();
+    });
+})();
+</script>
+
+</body>
+</html>
