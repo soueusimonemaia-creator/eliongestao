@@ -1,0 +1,19 @@
+ALTERACOES SOLICITADAS:
+- Data de emissão
+- Número da fatura
+- Fornecedor
+- Dinheiro
+- Cartão
+- Nota de crédito
+- Valor total
+
+Rodapé:
+- Total dinheiro
+- Total cartão
+- Total nota de crédito
+- Total geral
+
+Impressão:
+- Logo da empresa
+- Paginação X/Y
+- Manter utilizador Maia e lançamentos.

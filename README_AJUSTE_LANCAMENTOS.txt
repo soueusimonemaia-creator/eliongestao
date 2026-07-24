@@ -1,0 +1,1 @@
+Ajustes aplicados:\n- Ao salvar um lançamento, limpa também os campos do item em edição na rotina de lançamentos.\n- Adicionado botão "Voltar para Lançamentos" na rotina de consulta.\n

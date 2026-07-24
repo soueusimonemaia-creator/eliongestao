@@ -1,0 +1,27 @@
+{
+  "combustiveis": {
+    "95-gasolina": {
+      "nome": "95 Gasolina",
+      "imagem_url": "/static/Elion/img/gasolina95_btn.png"
+    },
+    "98-gasolina-aditivada": {
+      "nome": "98 Gasolina Aditivada",
+      "imagem_url": "/static/Elion/img/gasolina98_btn.png"
+    },
+    "b7-gasoleo": {
+      "nome": "B7 Gasóleo",
+      "imagem_url": "/static/Elion/img/gasoleo_btn.png"
+    },
+    "b10-gasoleo-aditivado": {
+      "nome": "B10 Gasóleo Aditivado",
+      "imagem_url": "/static/Elion/img/gpl_btn.png"
+    },
+    "95-gasolina-simples": {
+      "nome": "95 Gasolina Simples"
+    }
+  },
+  "manutencao": {
+    "nome": "Manutenção",
+    "imagem_url": "/static/Elion/img/manutencao_btn.png"
+  }
+}

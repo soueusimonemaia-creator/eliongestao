@@ -1,0 +1,14 @@
+COMO ABRIR O ERP SEM DEIXAR O PROMPT ABERTO
+
+1. Instale as dependências normalmente.
+2. Entre na pasta do sistema.
+3. Dê dois cliques no arquivo: Abrir_ERP_Sem_CMD.vbs
+4. O sistema vai iniciar em segundo plano e abrir no navegador.
+
+Se o Windows não reconhecer o comando "pyw", troque a linha do arquivo VBS por:
+comando = "cmd /c cd /d """ & pasta & """ && pythonw iniciar_erp_oculto.pyw"
+
+Observação:
+- Ao fechar o navegador, o servidor continua ligado em segundo plano.
+- Para encerrar, finalize o processo python/pythonw no Gerenciador de Tarefas.
+- Para uso mais profissional e automático ao ligar o PC, o ideal é instalar como serviço do Windows.
