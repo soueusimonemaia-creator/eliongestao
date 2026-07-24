@@ -1,0 +1,146 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.login_view, name='login'),
+    path('forgot-password/request/', views.forgot_password_request, name='forgot_password_request'),
+    path('forgot-password/confirm/', views.forgot_password_confirm, name='forgot_password_confirm'),
+    path('logout/', views.logout_view, name='logout'),
+    path('configuracoes/sistema/', views.configuracoes_sistema_view, name='configuracoes_sistema'),
+    path('configuracoes/series/', views.series_configuracao, name='series_configuracao'),
+    path('configuracoes/impostos/', views.impostos_configuracao, name='impostos_configuracao'),
+    path('stocks/centro/', views.stocks_hub, name='stocks_hub'),
+    path('crm/centro/', views.crm_centro_view, name='crm_centro'),
+    path('fornecedores/centro/', views.fornecedores_centro_view, name='fornecedores_centro'),
+    path('transporte/centro/', views.transporte_centro_view, name='transporte_centro'),
+    path('revisao-frota/', views.revisao_frota_list, name='revisao_frota_list'),
+    path('revisao-frota/salvar/', views.revisao_frota_salvar, name='revisao_frota_salvar'),
+    path('revisao-frota/<int:id>/excluir/', views.revisao_frota_excluir, name='revisao_frota_excluir'),
+    path('liquidacoes/centro/', views.liquidacoes_centro_view, name='liquidacoes_centro'),
+    path('tributaria/centro/', views.autoridade_tributaria_view, name='autoridade_tributaria'),
+    path('painel/', views.dashboard_view, name='dashboard'),
+    path('trocar-empresa/', views.trocar_empresa_ativa, name='trocar_empresa_ativa'),
+
+    path('fornecedores/', views.fornecedores_list, name='fornecedores_list'),
+    path('fornecedores/salvar/', views.fornecedores_salvar, name='fornecedores_salvar'),
+    path('fornecedores/busca/', views.fornecedores_busca, name='fornecedores_busca'),
+    path('fornecedores/<int:id>/excluir/', views.fornecedor_excluir, name='fornecedor_excluir'),
+
+    path('funcionarios/', views.funcionarios_list, name='funcionarios_list'),
+    path('funcionarios/salvar/', views.funcionarios_salvar, name='funcionarios_salvar'),
+    path('funcionarios/<int:id>/excluir/', views.funcionario_excluir, name='funcionario_excluir'),
+
+    path('frota/', views.frota_list, name='frota_list'),
+    path('frota/salvar/', views.frota_salvar, name='frota_salvar'),
+    path('frota/busca/', views.frota_busca, name='frota_busca'),
+    path('frota/<int:id>/excluir/', views.frota_excluir, name='frota_excluir'),
+
+    path('combustiveis/', views.combustiveis_list, name='combustiveis_list'),
+    path('combustiveis/salvar/', views.combustiveis_salvar, name='combustiveis_salvar'),
+    path('combustiveis/busca/', views.combustiveis_busca, name='combustiveis_busca'),
+    path('combustiveis/<int:id>/excluir/', views.combustivel_excluir, name='combustivel_excluir'),
+    path('crm/manutencao-botao/', views.manutencao_botao_config, name='manutencao_botao_config'),
+    path('crm/manutencao-botao/salvar/', views.manutencao_botao_salvar, name='manutencao_botao_salvar'),
+    path('crm/manutencao-botao/exportar/', views.exportar_rotina_manutencao_excel, name='exportar_rotina_manutencao_excel'),
+    path('crm/manutencao-botao/<slug:key>/excluir/', views.manutencao_botao_excluir, name='manutencao_botao_excluir'),
+
+    path('empresas/', views.empresas_list, name='empresas_list'),
+    path('empresas/salvar/', views.empresas_salvar, name='empresas_salvar'),
+    path('empresas/<int:id>/excluir/', views.empresa_excluir, name='empresa_excluir'),
+
+    path('usuarios/', views.usuarios_list, name='usuarios_list'),
+    path('usuarios/salvar/', views.usuarios_salvar, name='usuarios_salvar'),
+    path('usuarios/alterar-senha/', views.usuario_alterar_senha, name='usuario_alterar_senha_propria'),
+    path('usuarios/<int:id>/alterar-senha/', views.usuario_alterar_senha, name='usuario_alterar_senha'),
+    path('usuarios/<int:id>/excluir/', views.usuario_excluir, name='usuario_excluir'),
+
+    path('lancamentos/salvar/', views.lancamentos_salvar, name='lancamentos_salvar'),
+    path('lancamentos/<int:id>/', views.lancamento_detalhe, name='lancamento_detalhe'),
+    path('lancamentos/<int:id>/excluir/', views.lancamento_excluir, name='lancamento_excluir'),
+    path('lancamentos/<int:id>/baixa/', views.lancamento_baixa, name='lancamento_baixa'),
+
+    path('consulta/', views.consulta_lancamentos, name='consulta_lancamentos'),
+    path('faturas/busca/', views.faturas_busca, name='faturas_busca'),
+
+    path('fornecedores/list/', views.fornecedores_list),
+    path('funcionarios/list/', views.funcionarios_list),
+    path('frota/list/', views.frota_list),
+    path('combustiveis/list/', views.combustiveis_list),
+    path('empresas/list/', views.empresas_list),
+    path('usuarios/list/', views.usuarios_list),
+    path('consulta/lancamentos/', views.consulta_lancamentos),
+
+    path('relatorios/financeiro/', views.relatorio_financeiro, name='relatorio_financeiro'),
+    path('relatorios/baixa-faturas/', views.relatorio_baixa_faturas, name='relatorio_baixa_faturas'),
+    path('relatorios/faturas/', views.relatorio_faturas, name='relatorio_faturas'),
+    path('relatorios/frota/', views.relatorio_frota, name='relatorio_frota'),
+    path('relatorios/manutencao/', views.relatorio_manutencao, name='relatorio_manutencao'),
+    path('relatorios/caixa/', views.relatorio_caixa, name='relatorio_caixa'),
+    path('relatorios/combustivel/', views.relatorio_combustivel, name='relatorio_combustivel'),
+    path('relatorios/documentos/', views.relatorio_documentos, name='relatorio_documentos'),
+
+    path('relatorios/financeiro/exportar/', views.exportar_financeiro_excel, name='exportar_financeiro_excel'),
+    path('relatorios/faturas/exportar/', views.exportar_faturas_excel, name='exportar_faturas_excel'),
+    path('relatorios/frota/exportar/', views.exportar_frota_excel, name='exportar_frota_excel'),
+    path('relatorios/manutencao/exportar/', views.exportar_manutencao_excel, name='exportar_manutencao_excel'),
+    path('relatorios/revisao/exportar/', views.exportar_revisao_excel, name='exportar_revisao_excel'),
+    path('relatorios/caixa/exportar/', views.exportar_caixa_excel, name='exportar_caixa_excel'),
+    path('relatorios/combustivel/exportar/', views.exportar_combustivel_excel, name='exportar_combustivel_excel'),
+    path('relatorios/documentos/exportar/', views.exportar_documentos_excel, name='exportar_documentos_excel'),
+    path('relatorios/<slug:tipo>/exportar-pdf/', views.exportar_pdf_generico, name='exportar_pdf_generico'),
+    path('relatorios/<slug:tipo>/imprimir/', views.imprimir_generico, name='imprimir_generico'),
+    path('relatorio/faturas/excel/', views.exportar_faturas_excel),
+    path('relatorio/financeiro/excel/', views.exportar_financeiro_excel),
+]# Ajustes finais relatórios fornecedor
+urlpatterns += [
+    path('relatorios/financeiro/fornecedor/', views.relatorio_financeiro_fornecedor, name='relatorio_financeiro_fornecedor'),
+    path('relatorios/financeiro/fornecedor/exportar/', views.exportar_financeiro_fornecedor_excel, name='exportar_financeiro_fornecedor_excel'),
+]
+
+
+urlpatterns += [
+    path('clientes/', views.clientes_list, name='clientes_list'),
+    path('clientes/salvar/', views.clientes_salvar, name='clientes_salvar'),
+    path('clientes/busca/', views.clientes_busca, name='clientes_busca'),
+    path('clientes/<int:id>/excluir/', views.cliente_excluir, name='cliente_excluir'),
+    path('vendedores/', views.vendedores_list, name='vendedores_list'),
+    path('vendedores/salvar/', views.vendedores_salvar, name='vendedores_salvar'),
+    path('artigos/', views.artigos_list, name='artigos_list'),
+    path('artigos/salvar/', views.artigos_salvar, name='artigos_salvar'),
+    path('series-documentos/', views.series_documentos_list, name='series_documentos_list'),
+    path('series-documentos/salvar/', views.series_documentos_salvar, name='series_documentos_salvar'),
+    path('comercial/faturacao/', views.faturacao_list, name='faturacao_list'),
+    path('comercial/orcamentos/', views.orcamentos_list, name='orcamentos_list'),
+    path('faturacao/clientes/', views.documentos_venda_list, name='documentos_venda_list'),
+    path('faturacao/clientes/salvar/', views.documentos_venda_salvar, name='documentos_venda_salvar'),
+    path('faturacao/clientes/<int:id>/pdf/', views.documento_venda_pdf, name='documento_venda_pdf'),
+    path('faturacao/clientes/<int:id>/cancelar/', views.documento_venda_cancelar, name='documento_venda_cancelar'),
+    path('faturacao/clientes/<int:id>/converter/', views.documento_venda_converter_fatura, name='documento_venda_converter_fatura'),
+    path('faturacao/clientes/<int:id>/duplicar/', views.documento_venda_duplicar, name='documento_venda_duplicar'),
+    path('relatorios/extrato-clientes/', views.extrato_clientes, name='extrato_clientes'),
+    path('relatorios/extrato-fornecedores/', views.extrato_fornecedores, name='extrato_fornecedores'),
+]
+
+urlpatterns += [
+    path('configuracoes/iva/', views.configuracao_iva_view, name='configuracao_iva'),
+    path('configuracoes/exportacoes/', views.exportacoes_view, name='exportacoes_view'),
+    path('configuracoes/saft/', views.saft_view, name='saft_view'),
+    path('configuracoes/saft/exportar-xml/', views.saft_exportar_xml, name='saft_exportar_xml'),
+    path('configuracoes/inventario-existencias/', views.inventario_existencias_view, name='inventario_existencias_view'),
+    path('configuracoes/inventario-existencias/exportar-csv/', views.inventario_exportar_csv, name='inventario_exportar_csv'),
+    path('configuracoes/backup/exportar/', views.exportar_backup_empresa, name='exportar_backup_empresa'),
+    path('configuracoes/backup/importar/', views.importar_backup_empresa, name='importar_backup_empresa'),
+]
+
+urlpatterns += [
+    path('vendas/recibos/', views.recibos_venda_view, name='recibos_venda'),
+    path('vendas/notas-liquidacao/', views.notas_liquidacao_venda_view, name='notas_liquidacao_venda'),
+    path('vendas/devolucao-cliente/', views.devolucao_cliente_view, name='devolucao_cliente'),
+    path('transporte/guias-remessa/', views.guias_remessa_view, name='guias_remessa'),
+    path('transporte/guias-transporte/', views.guias_transporte_view, name='guias_transporte'),
+    path('transporte/fichas-servico/', views.fichas_servico_view, name='fichas_servico'),
+    path('liquidacoes/recibos/', views.recibos_liquidacao_view, name='recibos_liquidacao'),
+    path('liquidacoes/notas-liquidacao/', views.notas_liquidacao_view, name='notas_liquidacao'),
+    path('liquidacoes/notas-credito/', views.notas_credito_view, name='notas_credito'),
+    path('liquidacoes/devolucoes-pagamento/', views.devolucoes_pagamento_view, name='devolucoes_pagamento'),
+]

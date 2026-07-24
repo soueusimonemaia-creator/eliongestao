@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo }} | Elion Gestão</title>
+    <link rel="stylesheet" href="{% static 'Elion/css/style.css' %}?v=20260403b">
+    <style>
+        body{background:#f4f7fb;margin:0;font-family:Arial,sans-serif;color:#153255}
+        .shell{max-width:1240px;margin:0 auto;padding:22px}
+        .topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+        .title h1{margin:0;font-size:1.8rem}
+        .title p{margin:6px 0 0;color:#5b6f88}
+        .actions{display:flex;gap:10px;flex-wrap:wrap}
+        .btn-link{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid #c7d5e6;background:#fff;color:#163b69}
+        .hero{background:linear-gradient(135deg,#13356a,#0e548d);color:#fff;border-radius:20px;padding:22px;box-shadow:0 14px 34px rgba(15,23,42,.12);margin-bottom:18px}
+        .hero ul{margin:12px 0 0;padding-left:18px}
+        .group{background:#fff;border-radius:18px;padding:18px;box-shadow:0 12px 28px rgba(15,23,42,.08);margin-bottom:16px}
+        .group h2{margin:0 0 12px;font-size:1.1rem}
+        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+        .card{border:1px solid #e3ebf5;border-radius:16px;padding:16px;background:#fdfefe}
+        .card h3{margin:0 0 8px;font-size:1rem;color:#12335b}
+        .card p{margin:0 0 14px;color:#5a6e87;font-size:.92rem;min-height:52px}
+        .card .btn-link{width:100%}
+        .muted{color:#71839c;font-size:.85rem}
+        @media (max-width:700px){.shell{padding:14px}.hero{padding:18px}}
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <div class="topbar">
+            <div class="title">
+                <h1>{{ titulo }}</h1>
+                <p>{{ subtitulo }}</p>
+            </div>
+            <div class="actions">
+                <a class="btn-link" href="{% url 'dashboard' %}">Voltar ao painel</a>
+                <a class="btn-link" href="{% url 'configuracoes_sistema' %}">Configurações</a>
+            </div>
+        </div>
+
+        <div class="hero">
+            <strong>Empresa ativa:</strong> {{ empresa_ativa.nome|default:"Todas / não definida" }}
+            {% if destaque_legal %}
+            <ul>
+                {% for item in destaque_legal %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
+        {% for grupo in grupos %}
+        <section class="group">
+            <h2>{{ grupo.titulo }}</h2>
+            <div class="grid">
+                {% for rotina in grupo.rotinas %}
+                <article class="card" data-rotina="{{ rotina.rotina }}">
+                    <h3>{{ rotina.label }}</h3>
+                    <p>{{ rotina.descricao }}</p>
+                    <a class="btn-link" href="{{ rotina.href }}">Abrir rotina</a>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        {% endfor %}
+    </div>
+
+    <script>
+        (function(){
+            const perms = {{ permissoes_usuario_json|safe }} || {};
+            document.querySelectorAll('[data-rotina]').forEach(card => {
+                const key = card.getAttribute('data-rotina');
+                if (!key) return;
+                if (!perms[key] || !perms[key].view) {
+                    card.style.opacity = '.45';
+                    const btn = card.querySelector('a');
+                    if (btn) {
+                        btn.removeAttribute('href');
+                        btn.textContent = 'Sem permissão';
+                    }
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
